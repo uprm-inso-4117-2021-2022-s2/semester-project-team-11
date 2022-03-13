@@ -10,8 +10,12 @@ Welcome to the Team 11 repo, this is our semester project for the course Softwar
 - Peter L. Santana Rodriguez (peter.santana@upr.edu)
 
 ## Team A3
-Our project will consist of a Stock Market Information Hub, click [here](Documents/A3-Team11-StockMarketInfoHub.pdf) to see our A3.
+Our project will consist of a Stock Market Information Hub, click [here to see our A3](Documents/A3-Team11-StockMarketInfoHub.pdf) .
 
 ## Team Proposal
-Proposal for [Stocker](Documents/Proposal%20Stocker%20-%20Team%2011.pdf).
+
+Click [here to see our Proposal for Stocker](Documents/Proposal%20Stocker%20-%20Team%2011.pdf).
+
+![Stocker Logo](Documents/Logo/Stocker-Logo.png)
+
 
