@@ -1,0 +1,13 @@
+.register-form-container{
+    margin-top: 20px;
+}
+.register-form{
+    width: 30vw;
+    margin: auto;
+    padding: 20px;
+    border-radius: 20px;
+    background-color: #FAF3DD;
+}
+.register-form-button-container{
+    text-align: center
+}
