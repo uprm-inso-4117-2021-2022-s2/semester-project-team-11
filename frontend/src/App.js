@@ -1,10 +1,9 @@
-import './App.css';
+import React from 'react';
+import AppRoutes from './Routing/AppRoutes';
 
 function App() {
   return (
-    <div className="App">
-      Hola
-    </div>
+    <AppRoutes />
   );
 }
 
