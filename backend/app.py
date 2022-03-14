@@ -13,6 +13,14 @@ def hello_world():
 #                               USERS                               #
 #####################################################################
 
+@app.route('/stocker/users/login', methods=["POST"])
+def handle_login():
+    if request.method == 'POST':
+        return BaseUsers().userLogin(request.json)
+    else:
+        return jsonify("METHOD NOT ALLOWED"), 405
+
+
 @app.route('/stocker/users', methods=["POST"])
 def handle_users():
     if request.method == 'POST':
