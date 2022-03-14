@@ -70,7 +70,7 @@ class BaseUsers:
             result = self.build_login_map_dict(user)
             return jsonify(result), 200
         else:
-            return jsonify("USER AUTHENTICATION FAILED"), 500
+            return jsonify("USER AUTHENTICATION FAILED"), 401
 
     def createNewUser(self, json):
         firstname = json["firstname"]
@@ -99,7 +99,7 @@ class BaseUsers:
         if userID:
             user_tuple = (userID, firstname, lastname, email, legalAge)
             result = self.build_newuser_map_dict(user_tuple)
-            return jsonify(result), 200
+            return jsonify(result), 201
         else:
             return jsonify("USER NOT CREATED"), 500
 
