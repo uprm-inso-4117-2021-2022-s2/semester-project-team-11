@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import { BsFillPersonFill, BsFillEnvelopeFill, BsFillKeyFill } from "react-icons/bs";
+import { IoTelescopeOutline } from "react-icons/io5"
 import { hosts } from '../../../config/hosts';
 import { useNavigate } from 'react-router-dom'
 
@@ -117,8 +118,7 @@ export default function SignIp( { toggle } ) {
         return(
             <div className='login-register-toggler'>
                 <h1>
-                    Already in Stocker?
-                    <img className='toggler-icon' src='Binoculars.png' alt='Logo'/>
+                    Already in Stocker? <IoTelescopeOutline className='toggler-icon'/>
                 </h1>
                 <div className='form-button-container'>
                     <Button variant="dark" onClick={ () => toggle(true) }> Login </Button>

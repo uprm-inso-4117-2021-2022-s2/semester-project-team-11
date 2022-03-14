@@ -56,11 +56,15 @@
     margin: auto;
     align-self: center;
     text-align: center;
-    min-width: 375px
+    min-width: 375px;
+}
+
+.login-register-toggler h1{
+    font-size: 60px;
 }
 
 .toggler-icon{
-    width: 50px;
+    width: 60px;
     height: auto;
 }
 
