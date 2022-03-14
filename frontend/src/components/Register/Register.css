@@ -10,7 +10,7 @@
     min-width: 60vw;
 }
 
-.register-form-container{
+.login-register-container{
     display: flex;
 
     margin: 60px auto;
@@ -64,12 +64,17 @@
     height: auto;
 }
 
-.register-form-button-container{
+.form-button-container{
     text-align: center;
 }
 
-.register-form-button-container button{
+.form-button-container button{
     border-radius: 50px;
+}
+
+.form-button-container button:hover{
+    background-color: #5a5a5a;
+    border-color: #5a5a5a;
 }
 
 .division-line{

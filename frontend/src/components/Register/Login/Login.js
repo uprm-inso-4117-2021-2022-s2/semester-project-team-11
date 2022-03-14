@@ -73,7 +73,7 @@ export default function Login( {toggle} ) {
                     </InputGroup>
                 </Form.Group>
 
-                <div className='register-form-button-container'>
+                <div className='form-button-container'>
                     <Button variant="dark" onClick={ userAuthentication }>
                         Login
                     </Button>
@@ -90,7 +90,7 @@ export default function Login( {toggle} ) {
                     Want to join Stocker?
                     <img className='toggler-icon' src='Rocket.png' alt='Logo'/>
                 </h1>
-                <div className='register-form-button-container'>
+                <div className='form-button-container'>
                     <Button variant="dark" onClick={ () => toggle(false)}> Register </Button>
                 </div>
 
@@ -100,13 +100,11 @@ export default function Login( {toggle} ) {
     }
 
     return (
-        <div>
-            <div className='register-form-container'>
-                <div className='container'>
+        <div className='container'>
+            <div className='login-register-container'>
                     { renderLogin() }
                     <div className='division-line'></div>
                     { renderMessage() }
-                </div>
             </div>
         </div>
     )

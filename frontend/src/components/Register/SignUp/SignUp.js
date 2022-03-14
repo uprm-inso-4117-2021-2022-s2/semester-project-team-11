@@ -103,7 +103,7 @@ export default function SignIp( { toggle } ) {
                     <Form.Check type="checkbox" label="Check this box if you are 18 years or older." checked={legalAge} onChange={(e) => setLegalAge(e.target.checked)} />
                 </Form.Group>
 
-                <div className='register-form-button-container'>
+                <div className='form-button-container'>
                     <Button variant="dark" onClick={registerUser}>
                         Register
                     </Button>
@@ -119,10 +119,8 @@ export default function SignIp( { toggle } ) {
                 <h1>
                     Already in Stocker?
                     <img className='toggler-icon' src='Binoculars.png' alt='Logo'/>
-
-
                 </h1>
-                <div className='register-form-button-container'>
+                <div className='form-button-container'>
                     <Button variant="dark" onClick={ () => toggle(true) }> Login </Button>
                 </div>
 
@@ -132,13 +130,11 @@ export default function SignIp( { toggle } ) {
     }
 
     return (
-        <div>
-            <div className='register-form-container'>
-                <div className='container'>
-                    { renderMessage() }
-                    <div className='division-line'></div>
-                    { renderSignUp() }
-                </div>
+        <div className='container'>
+            <div className='login-register-container'>
+                { renderMessage() }
+                <div className='division-line'></div>
+                { renderSignUp() }
             </div>
         </div>
     )
