@@ -21,6 +21,14 @@ class UsersDAO:
 #                                       CRUD OPERATIONS                                             #
 #####################################################################################################
 
+    def userLogin(self, email, password):
+        cursor = self.conn.cursor()
+        query = "select userid, firstname, lastname from users where email = %s and password = crypt(%s, password)"
+        cursor.execute(query, (email, password))
+        user = cursor.fetchone()
+        self.conn.close()
+        return user
+
     def createUser(self, firstname: str, lastname: str, email: str, password: str, legalAge: bool):
         cursor = self.conn.cursor()
         query = "insert into users(firstname, lastname, email, password, legalAge) values (%s, %s, %s , crypt(%s, gen_salt('bf')), %s) returning userid;"

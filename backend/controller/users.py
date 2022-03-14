@@ -39,6 +39,13 @@ class BaseUsers:
 #                                       JSON FORMATTERS                                             #
 #####################################################################################################
 
+    def build_login_map_dict(self, row):
+        result = {}
+        result['userid'] = row[0]
+        result['firstname'] = row[1]
+        result['lastname'] = row[2]
+        return result
+    
     def build_newuser_map_dict(self, row):
         result = {}
         result['userid'] = row[0]
@@ -51,6 +58,19 @@ class BaseUsers:
 #####################################################################################################
 #                                       CRUD OPERATIONS                                             #
 #####################################################################################################
+    def userLogin(self, json):
+        email = json["email"]
+        password = json["password"]
+
+        dao = UsersDAO()
+        user = dao.userLogin(email, password)
+        dao.conn.close()
+
+        if user:
+            result = self.build_login_map_dict(user)
+            return jsonify(result), 200
+        else:
+            return jsonify("USER AUTHENTICATION FAILED"), 401
 
     def createNewUser(self, json):
         firstname = json["firstname"]
@@ -79,7 +99,7 @@ class BaseUsers:
         if userID:
             user_tuple = (userID, firstname, lastname, email, legalAge)
             result = self.build_newuser_map_dict(user_tuple)
-            return jsonify(result), 200
+            return jsonify(result), 201
         else:
             return jsonify("USER NOT CREATED"), 500
 
