@@ -14,6 +14,8 @@ export default function Register() {
     const [password, setPassword] = useState("");
     const [legalAge, setLegalAge] = useState(false);
 
+    const [inLogin, setInLogin] = useState(true)
+
     const history = useNavigate();
 
     // TODO: Add verification of fields and modal when error occurs to display error, i.e. invalid password/email, etc.
@@ -44,8 +46,49 @@ export default function Register() {
             });
     }
 
-    return (
-        <div className='register-form-container'>
+    const renderLogin = () => {
+
+        return (
+            <Form className='login-form'>
+                <Form.Group className="mb-3">
+                    <Form.Label>email</Form.Label>
+                    <InputGroup>
+                        <InputGroup.Text><BsFillEnvelopeFill /></InputGroup.Text>
+                        <Form.Control
+                            type="email"
+                            name="email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            placeholder="enter your email" />
+                    </InputGroup>
+                </Form.Group>
+
+                <Form.Group className="mb-3">
+                    <Form.Label>password</Form.Label>
+                    <InputGroup >
+                        <InputGroup.Text><BsFillKeyFill /></InputGroup.Text>
+                        <Form.Control
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            placeholder="enter your password" />
+                    </InputGroup>
+                </Form.Group>
+
+                <div className='register-form-button-container'>
+                    <Button variant="dark" >
+                        Login
+                    </Button>
+                </div>
+            </Form>
+        )
+
+    }
+
+    const renderRegister = () => {
+
+       return (
             <Form className='register-form'>
                 <Form.Group className="mb-3">
                     <Form.Label>first name</Form.Label>
@@ -105,10 +148,41 @@ export default function Register() {
 
                 <div className='register-form-button-container'>
                     <Button variant="dark" onClick={registerUser}>
-                        Submit
+                        Register
                     </Button>
                 </div>
-            </Form >
-        </div >
+            </Form >)
+        
+
+    }
+
+    const renderToggler = () => {
+        return(
+            <div className='login-register-toggler'>
+                <h1>
+                    { inLogin ? 'Want to join Stocker?' : 'Already in Stocker?'}
+                    <img className='toggler-icon' src={ inLogin ? 'Rocket.png' : 'Binoculars.png'} alt='Logo'/>
+
+
+                </h1>
+                <div className='register-form-button-container'>
+                    <Button variant="dark" onClick={ () => setInLogin(!inLogin) }> { inLogin ? 'Register' : 'Login' } </Button>
+                </div>
+
+            </div>  
+        )
+        
+    }
+
+    return (
+        <div>
+            <div className='register-form-container'>
+                <div className='container'>
+                    { inLogin ? renderLogin() : renderToggler() }
+                    <div className='division-line'></div>
+                    { !inLogin ? renderRegister() : renderToggler() }
+                </div>
+            </div>
+        </div>
     )
 }
