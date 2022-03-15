@@ -1,3 +1,9 @@
+# Python venv
 stocker/
+
+# Jetbrains IDE
 .idea/
+
+# Local Development 
 config/
+Makefile

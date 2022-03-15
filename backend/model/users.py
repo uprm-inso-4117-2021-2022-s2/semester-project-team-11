@@ -1,9 +1,9 @@
+import os
 import psycopg2
-from config.dbconfig import pg_config
 
 class UsersDAO:
     def __init__(self):
-        self.conn = psycopg2.connect(pg_config['uri'])
+        self.conn = psycopg2.connect(os.environ["DATABASE_URL"], sslmode="require")
 
 #####################################################################################################
 #                                       HELPER METHODS                                              #
