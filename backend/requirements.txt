@@ -1,7 +1,8 @@
-click==8.0.4
+﻿click==8.0.4
 colorama==0.4.4
 Flask==2.0.3
 Flask-Cors==3.0.10
+gunicorn==20.1.0
 importlib-metadata==4.11.2
 itsdangerous==2.1.1
 Jinja2==3.0.3
