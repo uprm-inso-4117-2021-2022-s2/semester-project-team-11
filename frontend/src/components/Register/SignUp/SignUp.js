@@ -25,7 +25,7 @@ export default function SignIp( { toggle } ) {
             },
             body: JSON.stringify({ "firstname": firstname, "lastname": lastname, "email": email, "password": password, "legalAge": legalAge })
         };
-        fetch(hosts['localhost'] + 'stocker/users', request)
+        fetch(hosts['heroku'] + 'stocker/users', request)
             .then((response) => response.json())
             .then((data) => {
 
@@ -130,12 +130,10 @@ export default function SignIp( { toggle } ) {
     }
 
     return (
-        <div className='container'>
-            <div className='login-register-container'>
-                { renderMessage() }
-                <div className='division-line'></div>
-                { renderSignUp() }
-            </div>
+        <div className='login-register-container'>
+            { renderMessage() }
+            <div className='division-line'></div>
+            { renderSignUp() }
         </div>
     )
 }

@@ -4,15 +4,9 @@
     font-family: 'ABeeZee', sans-serif;
 }
 
-.container{
-    display: inherit;
-    max-width: 80vw;
-    min-width: 60vw;
-}
 
 .login-register-container{
     display: flex;
-
     margin: 60px auto;
     min-height: 450px;
     

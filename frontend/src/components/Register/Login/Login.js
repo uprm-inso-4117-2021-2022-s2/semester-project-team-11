@@ -23,7 +23,7 @@ export default function Login( {toggle} ) {
         };
 
         try{
-            const response = await fetch(hosts['localhost'] + 'stocker/users/login', request)
+            const response = await fetch(hosts['heroku'] + 'stocker/users/login', request)
             const data = await response.json()
 
             if (data.userid) {
@@ -98,14 +98,13 @@ export default function Login( {toggle} ) {
         )
         
     }
+    
 
     return (
-        <div className='container'>
-            <div className='login-register-container'>
-                    { renderLogin() }
-                    <div className='division-line'></div>
-                    { renderMessage() }
-            </div>
+        <div className='login-register-container'>
+                { renderLogin() }
+                <div className='division-line'></div>
+                { renderMessage() }
         </div>
     )
 }
