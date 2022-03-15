@@ -1,13 +1,83 @@
-.register-form-container{
-    margin-top: 20px;
+@import url('http://fonts.cdnfonts.com/css/abeezee');
+
+*{
+    font-family: 'ABeeZee', sans-serif;
 }
-.register-form{
-    width: 30vw;
-    margin: auto;
-    padding: 20px;
+
+
+.login-register-container{
+    display: flex;
+    margin: 60px auto;
+    min-height: 450px;
+    
+}
+
+.register-form, .login-form{
+    width: 20vw;
+    height: fit-content;
+    padding: 20px 30px;
     border-radius: 20px;
     background-color: #FAF3DD;
+    align-self: center;
+    margin: auto;
+    box-shadow: 0px 4px 4px #d0d0d0;
+    min-width: 375px
+    
 }
-.register-form-button-container{
-    text-align: center
+
+.input-group span{
+    background-color: #ffffff;
+    border: none;
+    margin-right: 0;
+    border-radius: 10px;
+}
+
+.input-group svg{
+    width: auto;
+    height: 20px;
+}
+
+.input-group input{
+    border: none;
+    border-radius: 10px;
+}
+
+.login-register-toggler{
+    width: 20vw;
+    height: fit-content;
+    padding: 20px 30px;
+    border-radius: 20px;
+    margin: auto;
+    align-self: center;
+    text-align: center;
+    min-width: 375px;
+}
+
+.login-register-toggler h1{
+    font-size: 60px;
+}
+
+.toggler-icon{
+    width: 60px;
+    height: auto;
+}
+
+.form-button-container{
+    text-align: center;
+}
+
+.form-button-container button{
+    border-radius: 50px;
+}
+
+.form-button-container button:hover{
+    background-color: #5a5a5a;
+    border-color: #5a5a5a;
+}
+
+.division-line{
+    border: 1px #d0d0d0 solid;
+    border-radius: 50px;
+    height: auto;
+    margin: 0px 30px
 }
