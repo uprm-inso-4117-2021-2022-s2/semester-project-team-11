@@ -1,6 +1,9 @@
 # Python venv
 stocker/
 
+# Python Packages
+__pycache__/
+
 # Jetbrains IDE
 .idea/
 
