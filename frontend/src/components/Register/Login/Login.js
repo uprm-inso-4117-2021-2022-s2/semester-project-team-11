@@ -6,6 +6,11 @@ import { BsFillEnvelopeFill, BsFillKeyFill } from "react-icons/bs";
 import { IoRocketOutline } from "react-icons/io5"
 import { hosts } from '../../../config/hosts';
 import { useNavigate } from 'react-router-dom'
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
+import { Container, Col, Row } from "react-bootstrap";
+import logo from '../../../../src/images/Stocks_GrowthCombined.png';
+import "./Login.css";
 
 export default function Login( {toggle} ) {
     const [email, setEmail] = useState("");
@@ -47,6 +52,8 @@ export default function Login( {toggle} ) {
     const renderLogin = () => {
 
         return (
+          
+
             <Form className='login-form'>
                 <Form.Group className="mb-3">
                     <Form.Label>email</Form.Label>
@@ -101,10 +108,26 @@ export default function Login( {toggle} ) {
     
 
     return (
+        <>
+        <Navbar className="color-nav">
+        <Container>
+              <Navbar.Brand href="#home">
+                <img
+                alt=""
+                src={logo}
+                width="120"
+                height="50"
+                className="d-inline-block align-top"
+                    />{' '}
+              </Navbar.Brand>
+              </Container>
+
+        </Navbar>
         <div className='login-register-container'>
-                { renderLogin() }
+                {renderLogin()}
                 <div className='division-line'></div>
-                { renderMessage() }
-        </div>
+                {renderMessage()}
+            </div>
+            </>
     )
 }
