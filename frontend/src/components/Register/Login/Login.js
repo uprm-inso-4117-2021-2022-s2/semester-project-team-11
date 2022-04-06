@@ -111,7 +111,7 @@ export default function Login( {toggle} ) {
         <>
         <Navbar className="color-nav">
         <Container>
-              <Navbar.Brand href="/">
+              <Navbar.Brand href="/" style="autos">
                 <img
                 alt=""
                 src={logo}

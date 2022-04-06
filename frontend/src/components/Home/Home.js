@@ -5,7 +5,7 @@ import { Nav, Navbar, NavDropdown, Card, Button, Carousel } from 'react-bootstra
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 import { Container, Col, Row, Form } from "react-bootstrap";
 import './Home.css';
-import logo from '../../../src/images/Stocks_GrowthCombined.png';
+import logo from '../../../src/images/StockLogo.svg';
 import stocksImage from '../../../src/images/Stocks.jpg';
 import educationalResources from '../../../src/images/EducationalResources.jpg';
 import economicIndicators from '../../../src/images/EconomicIndicators.jpg';
@@ -87,7 +87,7 @@ function Home() {
                                     <img
                                         className="d-block w-100"
                                         src={economicIndicators}
-                                        alt="Third slide"
+                                        alt="Fourth slide"
                                     />
                                     <Carousel.Caption>
                                         <h3>Economic Indicators</h3>
