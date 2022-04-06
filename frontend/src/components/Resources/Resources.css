@@ -1,0 +1,49 @@
+@import url('http://fonts.cdnfonts.com/css/abeezee');
+
+*{
+    font-family: 'ABeeZee', sans-serif;
+}
+
+.resources-container{
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    margin: 60px auto;
+    min-height: 800px;
+}
+
+.resources-upper-sidescroll{
+    /* display: flex;
+    flex-flow: row nowrap;
+    justify-content: space-evenly; */
+    white-space: nowrap;
+    max-height: 300px;
+    width: 8000vw;
+    overflow-y: hidden;
+    overflow-x: scroll ;
+    position: relative;
+    -webkit-overflow-scrolling: touch;
+}
+
+.resources-sidescroll-items {
+    float: none;
+    background : lightgray;
+    width: 300px;
+    height: 100%;
+    margin: 10px 20px;
+    display: inline-block;
+}
+
+.resources-lower-zone {
+    max-height: auto;
+    width: 100%;
+    margin: 0px 20px;
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.resources-review-corner {
+    background-color: aquamarine;
+    width: 60%;
+    height: 100%;
+}

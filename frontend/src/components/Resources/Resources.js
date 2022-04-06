@@ -22,6 +22,22 @@ const Resources = () => {
               </Navbar.Brand>
           </Container>
       </Navbar>
+      <div className='resources-container'>
+        <div className='resources-upper-sidescroll'>
+            <div className='resources-sidescroll-items'></div>
+            <div className='resources-sidescroll-items'></div>
+            <div className='resources-sidescroll-items'></div>
+            <div className='resources-sidescroll-items'></div>
+            <div className='resources-sidescroll-items'></div>
+            <div className='resources-sidescroll-items'></div>
+            <div className='resources-sidescroll-items'></div>
+        </div>
+        <div className='resources-lower-zone'>
+            <div className='resources-review-corner'>
+
+            </div>
+        </div>
+      </div>
       </>
   )
 }
