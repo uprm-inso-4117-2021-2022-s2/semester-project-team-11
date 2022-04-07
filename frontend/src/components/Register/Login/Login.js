@@ -9,7 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
 import { Container, Col, Row } from "react-bootstrap";
-import logo from '../../../../src/images/Stocks_GrowthCombined.png';
+import logo from '../../../../src/images/StockLogo.svg';
 import "./Login.css";
 
 export default function Login( {toggle} ) {
@@ -111,7 +111,7 @@ export default function Login( {toggle} ) {
         <>
         <Navbar className="color-nav">
         <Container>
-              <Navbar.Brand href="/" style="autos">
+              <Navbar.Brand href="/">
                 <img
                 alt=""
                 src={logo}
