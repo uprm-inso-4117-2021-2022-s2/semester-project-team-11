@@ -17,8 +17,7 @@ class StockDAO:
 
     def getUserSavedStocks(self, userid):
         cursor = self.conn.cursor()
-        query = "select symbol from  monitors as M ,  \
-            stock as S where M.userid = %s and s.stockid = M.stockid;"
+        query = "select symbol from monitors natural inner join stock where userid = %s;"
         cursor.execute(query, (userid,))
         stocks = []
         for row in cursor:
