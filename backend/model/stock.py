@@ -1,14 +1,11 @@
 import os
 from matplotlib.style import use
 import psycopg2
-from config.dbconfig import pg_config
 
 class StockDAO:
 
     def __init__(self):
-        # self.conn = psycopg2.connect(os.environ["DATABASE_URL"], sslmode="require")
-       
-        self.conn = psycopg2.connect(pg_config['uri'])
+        self.conn = psycopg2.connect(os.environ["DATABASE_URL"], sslmode="require")
 
    
 #####################################################################################################
