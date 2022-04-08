@@ -34,8 +34,8 @@ def handle_users():
 #                               STOCK                               #
 #####################################################################
 
-@app.route('/stocker/stock/savedStocks', methods=["GET"])
-def handle_users(userid):
+@app.route('/stocker/stock/savedStocks/<int:userid>', methods=["GET"])
+def handle_user_stocks(userid):
     if request.method == 'GET':
         return BaseStock().getUserSavedStocks(userid)
     else:
