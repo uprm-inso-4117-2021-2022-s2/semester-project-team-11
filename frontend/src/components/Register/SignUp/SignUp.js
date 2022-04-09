@@ -6,6 +6,11 @@ import { BsFillPersonFill, BsFillEnvelopeFill, BsFillKeyFill } from "react-icons
 import { IoTelescopeOutline } from "react-icons/io5"
 import { hosts } from '../../../config/hosts';
 import { useNavigate } from 'react-router-dom'
+import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
+import { Container, Col, Row } from "react-bootstrap";
+import logo from '../../../../src/images/StockLogo.svg';
+import "../Login/Login.css";
 
 export default function SignIp( { toggle } ) {
     const [firstname, setFirstname] = useState("");
@@ -130,10 +135,30 @@ export default function SignIp( { toggle } ) {
     }
 
     return (
+        <>
+        <Navbar className="color-nav">
+        <Container>
+              <Navbar.Brand href="/">
+                <img
+                alt=""
+                src={logo}
+                width="120"
+                height="50"
+                className="d-inline-block align-top"
+                    />{' '}
+              </Navbar.Brand>
+              </Container>
+
+        </Navbar>
+
+
+
+
         <div className='login-register-container'>
             { renderMessage() }
             <div className='division-line'></div>
             { renderSignUp() }
         </div>
+        </>
     )
 }
