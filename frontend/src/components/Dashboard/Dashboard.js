@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Nav, Navbar, Container } from 'react-bootstrap';
 import logo from '../../../src/images/Stocks_GrowthCombined.png';
 import axios from "axios";
@@ -10,7 +10,37 @@ import "./Dashboard.css"
 export default function Dashboard() {
 
     const [searchWord, setSearchWord] = useState("");
-    const [searchResult, setSearchResult] = useState({})
+    const [searchResult, setSearchResult] = useState({});
+    const [stock, setStock] = useState([]);
+
+    useEffect(() => {
+        const stockRequest = {
+            method: 'GET',
+            url: 'https://yh-finance.p.rapidapi.com/stock/v2/get-chart',
+            params: { interval: '5m', symbol: 'fb', range: '1d', region: 'US' },
+            headers: {
+                'X-RapidAPI-Host': 'yh-finance.p.rapidapi.com',
+                'X-RapidAPI-Key': 'feac1ad6damshf3407a191632ab5p10c29djsnacfead750eb3'
+            }
+        };
+
+        axios.request(stockRequest).then(function (response) {
+            const indicators = response.data.chart.result[0].indicators.quote[0].close;
+            const timestamp = response.data.chart.result[0].timestamp;
+
+            for (let index = 0; index < indicators.length; index++) {
+                var utcSeconds = timestamp[index];
+                var d = new Date(0);
+                d.setUTCSeconds(utcSeconds);
+                const data = { Symbol: 'FB', Date: d, Close: indicators[index] };
+                setStock(stock.concat(data));
+                console.log(data)
+            }
+        }).catch(function (error) {
+            console.error(error);
+        });
+    }, [])
+
 
     const searchRequest = {
         method: 'GET',
@@ -23,7 +53,6 @@ export default function Dashboard() {
     };
 
     const searchAction = (e) => {
-
         if (e.type === "click" || e.key === 'Enter') {
             axios.request(searchRequest).then(function (response) {
                 setSearchResult(response.data);
@@ -33,19 +62,6 @@ export default function Dashboard() {
             });
         }
     };
-
-    const searchBar =
-        <div className='dashboard-searchBar-container'>
-            <input type="text"
-                placeholder="Search for a keyword..."
-                value={searchWord}
-                name="searchWord"
-                onChange={(e) => setSearchWord(e.target.value)}
-                onKeyDown={searchAction}
-                style={{ height: 40, width: "80%", borderRadius: 15, borderColor: 'white', backgroundColor: "lightgray" }}
-            />
-            < BsSearch name='search' onClick={searchAction} style={{ margin: '5px' }} />
-        </div>;
 
     return (
         <>
@@ -65,7 +81,6 @@ export default function Dashboard() {
                     </Nav>
                 </Container>
             </Navbar>
-
             <div className='dashboard-flex-container'>
                 <div className='dashboard-left-container'>
                     <div className='dashboard-header-container'>
@@ -74,10 +89,18 @@ export default function Dashboard() {
                     <div className='dashboard-current-stock '>
                         <img src={graph} alt="stock" />
                     </div>
-                    <div className='dashboard-searchBar-container'>{searchBar}</div>
-
-
-
+                    <div className='dashboard-searchBar-container'>
+                        <div className='dashboard-searchBar-container'>
+                            <input type="text"
+                                placeholder="Search for a keyword..."
+                                value={searchWord}
+                                name="searchWord"
+                                onChange={(e) => setSearchWord(e.target.value)}
+                                onKeyDown={searchAction}
+                                style={{ height: 40, width: "80%", borderRadius: 15, borderColor: 'white', backgroundColor: "lightgray" }}
+                            />
+                            < BsSearch name='search' onClick={searchAction} style={{ margin: '5px' }} />
+                        </div></div>
                     {searchResult.quotes &&
                         <Table responsive>
                             <thead>
