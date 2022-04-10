@@ -2,6 +2,7 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from controller.users import BaseUsers
 from controller.stock import BaseStock
+from controller.news import BaseNews
 
 app = Flask(__name__)
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -38,6 +39,17 @@ def handle_users():
 def handle_user_stocks(userid):
     if request.method == 'GET':
         return BaseStock().getUserSavedStocks(userid)
+    else:
+        return jsonify("METHOD NOT ALLOWED"), 405
+
+#####################################################################
+#                                NEWS                               #
+#####################################################################
+
+@app.route('/stocker/news/savedNews/<int:userid>', methods=["GET"])
+def handle_user_news(userid):
+    if request.method == 'GET':
+         return BaseNews().getUserSavedNews(userid)
     else:
         return jsonify("METHOD NOT ALLOWED"), 405
 
