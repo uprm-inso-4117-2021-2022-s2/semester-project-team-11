@@ -1,0 +1,47 @@
+.news-flex-container {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.news-flex-container>* {
+    padding: 10px;
+    flex: 1 100%;
+}
+
+.news-left-container {
+    flex: 3;
+}
+
+.news-right-container {
+    flex: 1;
+}
+
+.news-current-stock {
+    text-align: center;
+}
+
+
+.news-header-container {
+    flex: 2;
+    text-align: center;
+    font-weight: bold;
+    font-size: x-large;
+    justify-content: center;
+}
+
+.news-searchBar-container {
+    margin-top: 100px;
+    margin-left:50px ;
+    margin-right: 125px;
+   
+    flex: 1;
+    
+
+}
+
+hrr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
