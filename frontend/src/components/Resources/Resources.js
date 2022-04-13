@@ -4,6 +4,7 @@ import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Container, Col, Row } from "react-bootstrap";
 import logo from '../../../src/images/Stocks_GrowthCombined.png';
 import stock_image from '../../../src/images/Resources-Stock-Image-1.jpg'
+import fidelity_image from '../../../src/images/fidelity-logo.png'
 
 
 
@@ -99,14 +100,35 @@ const Resources = () => {
         <div className='resources-lower-zone'>
             <div className='resources-review-corner'>
                 <h1>Online Broker Reviews</h1>
-                <div className='resources-review-items'></div>
-                <div className='resources-review-items'></div>
-                <div className='resources-review-items'></div>
-                <div className='resources-review-items'></div>
-                <div className='resources-review-items'></div>
-                <div className='resources-review-items'></div>
-                <div className='resources-review-items'></div>
-                <div className='resources-review-items'></div>
+                <div className='resources-review-items'>
+                    <img src={fidelity_image} alt="fidelity-logo" />
+                    <div className='resources-review-item-text'>
+                        <p><b>Fidelity Investments Review</b></p> 
+                        <p>Fidelity is one of the most well-rounded brokerages available today, with no commissions on stock, ETF or options trades and a selection of no-expense-ratio index funds.</p>
+                    </div>
+                </div>
+                <div className='resources-review-items'>
+                    <img src={fidelity_image} alt="fidelity-logo" />
+                    <div className='resources-review-item-text'>
+                        <p><b>Fidelity Investments Review</b></p> 
+                        <p>Fidelity is one of the most well-rounded brokerages available today, with no commissions on stock, ETF or options trades and a selection of no-expense-ratio index funds.</p>
+                    </div>
+                </div>
+                <div className='resources-review-items'>
+                    <img src={fidelity_image} alt="fidelity-logo" />
+                    <div className='resources-review-item-text'>
+                        <p><b>Fidelity Investments Review</b></p> 
+                        <p>Fidelity is one of the most well-rounded brokerages available today, with no commissions on stock, ETF or options trades and a selection of no-expense-ratio index funds.</p>
+                    </div>
+                </div>
+                <div className='resources-review-items'>
+                    <img src={fidelity_image} alt="fidelity-logo" />
+                    <div className='resources-review-item-text'>
+                        <p><b>Fidelity Investments Review</b></p> 
+                        <p>Fidelity is one of the most well-rounded brokerages available today, with no commissions on stock, ETF or options trades and a selection of no-expense-ratio index funds.</p>
+                    </div>
+                </div>
+
             </div>
             <div className='resources-tips-tricks'>
                 <h1>The Basics</h1>
