@@ -28,11 +28,22 @@
 
 .resources-sidescroll-items {
     float: none;
-    background : lightgray;
+    /* background : lightgray; */
     width: 300px;
     height: 100%;
     margin: 10px 20px;
     display: inline-block;
+}
+
+.resources-sidescroll-flex{
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: flex-start;
+}
+
+.resources-sidescroll-items img{
+    width: 100%;
+    height: auto;
 }
 
 .resources-lower-zone {
