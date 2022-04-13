@@ -34,7 +34,29 @@ const Resources = () => {
         </div>
         <div className='resources-lower-zone'>
             <div className='resources-review-corner'>
-
+                <h1>Online Broker Reviews</h1>
+                <div className='resources-review-items'></div>
+                <div className='resources-review-items'></div>
+                <div className='resources-review-items'></div>
+                <div className='resources-review-items'></div>
+                <div className='resources-review-items'></div>
+                <div className='resources-review-items'></div>
+                <div className='resources-review-items'></div>
+                <div className='resources-review-items'></div>
+            </div>
+            <div className='resources-tips-tricks'>
+                <h1>The Basics</h1>
+                <div className='resources-tips-items'>
+                    <h4>What's an IRA?</h4>
+                    <p>An IRA is an account set up at a financial institution that allows an individual to save for retirement with tax-free growth or on a tax-deferred basis.  </p>
+                </div>
+                <div className='resources-tips-items'>
+                    <h4>What's an IRA?</h4>
+                    <p>An IRA is an account set up at a financial institution that allows an individual to save for retirement with tax-free growth or on a tax-deferred basis.  </p>
+                </div><div className='resources-tips-items'>
+                    <h4>What's an IRA?</h4>
+                    <p>An IRA is an account set up at a financial institution that allows an individual to save for retirement with tax-free growth or on a tax-deferred basis.  </p>
+                </div>
             </div>
         </div>
       </div>

@@ -7,7 +7,7 @@
 .resources-container{
     display: flex;
     flex-flow: row wrap;
-    justify-content: center;
+    justify-content: space-evenly;
     margin: 60px auto;
     min-height: 800px;
 }
@@ -17,7 +17,8 @@
     flex-flow: row nowrap;
     justify-content: space-evenly; */
     white-space: nowrap;
-    max-height: 300px;
+    min-height: 300px;    max-height: 400px;
+
     width: 8000vw;
     overflow-y: hidden;
     overflow-x: scroll ;
@@ -37,13 +38,87 @@
 .resources-lower-zone {
     max-height: auto;
     width: 100%;
-    margin: 0px 20px;
+    margin: 0px 10px;
     display: flex;
     flex-flow: row nowrap;
+    justify-content: space-evenly;
+    /* background-color: red; */
 }
 
 .resources-review-corner {
-    background-color: aquamarine;
+    /* background-color: aquamarine; */
     width: 60%;
     height: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    margin-top: 20px;
+    /* justify-content: space-between; */
+}
+
+.resources-review-corner h1 {
+    margin: 10px 0px;
+}
+
+.resources-review-items {
+    width: 100%;
+    height: 50px;
+    /* background-color: lightgray; */
+    margin: 10px;
+    border-color: lightgray;
+    border-width: 4px;
+    border-style: solid;
+}
+
+.resources-tips-tricks{
+    margin-top: 20px;
+    background-color: rgb(237, 237, 237);
+    width: 30%;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+}
+
+.resources-tips-tricks h1 {
+    margin: 10px 0px;
+    /* width: 100%; */
+
+}
+.resources-tips-items p{
+    padding-left: 30px;
+
+}
+
+.resources-tips-items{
+    text-align: justify;
+    width: 100%;
+    /* margin: 0px 30px; */
+    padding: 0px 20px;
+}
+
+@media (max-width: 768px) {
+    .resources-upper-sidescroll{
+        height: 300px;
+    }
+
+    .resources-lower-zone{
+        display: flex;
+        flex-flow: column nowrap;
+    }
+
+    .resources-review-corner {
+        width: 90%;
+        margin: 0px 20px;
+        margin-top: 40px;
+        height: auto;
+    }
+
+    .resources-tips-tricks {
+        width: 90%;
+        height: auto;
+        margin: 20px;
+    }
+    .resources-tips-items{
+        padding: 0px 30px;
+    }
 }
