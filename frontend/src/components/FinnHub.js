@@ -11,7 +11,7 @@ export default function FinnHub() {
     useEffect(() => {
         stockPricesRequest("AAPL", "1", 1649635200, 1649721599, setPrices)
         stockSearch("Meta", setSearch);
-        marketNews("general", setNews);
+        marketNews("general", {}, setNews);
         stockDetails('AAPL', setDetails);
     }, []);
 
@@ -20,7 +20,7 @@ export default function FinnHub() {
             {prices.c && prices.c.length > 0 ? prices.c.map((item, index) => <div key={`1-${index}`}>{index} : {item}</div>) : <></>}
             {news.length > 0 ? news.map((item, index) => <div key={`2-${index}`}>{index} : {item.headline}</div>) : <></>}
             {search.result && search.result.length > 0 ? search.result.map((item, index) => <div key={`3-${index}`}>{index} : {item.description}</div>) : <></>}
-            {details.length > 0 ? <div key={`4}`}> {details.ticker} - {details.name} - {details.exchange} </div> : <></>}
+            {details.ticker ? <div key={`4`}> {details.ticker} - {details.name} - {details.exchange} </div> : <></>}
         </>
     )
 }
