@@ -1,3 +1,9 @@
+@import url('http://fonts.cdnfonts.com/css/abeezee');
+
+*{
+    font-family: 'ABeeZee', sans-serif;
+}
+
 .color-nav{
     background-color: #8FC0A9;
 }
@@ -7,4 +13,208 @@
     height:125px;
     margin: auto;
     
-  }
+}
+
+.login-register-container{
+    display: flex;
+    margin: 60px auto;
+    min-height: 450px;
+    
+}
+
+.register-form, .login-form{
+    width: 20vw;
+    height: fit-content;
+    padding: 20px 30px;
+    border-radius: 20px;
+    background-color: #FAF3DD;
+    align-self: center;
+    margin: auto;
+    box-shadow: 0px 4px 4px #d0d0d0;
+    min-width: 375px
+    
+}
+
+.input-group span{
+    background-color: #ffffff;
+    border: none;
+    margin-right: 0;
+    border-radius: 10px;
+}
+
+.input-group svg{
+    width: auto;
+    height: 20px;
+}
+
+.input-group input{
+    border: none;
+    border-radius: 10px;
+}
+
+.login-register-toggler{
+    width: 20vw;
+    height: fit-content;
+    padding: 20px 30px;
+    border-radius: 20px;
+    margin: auto;
+    align-self: center;
+    text-align: center;
+    min-width: 375px;
+}
+
+.login-register-toggler h1{
+    font-size: 60px;
+}
+
+.toggler-icon{
+    width: 60px;
+    height: auto;
+}
+
+.button-link{
+    text-align: center;
+}
+
+.button-link button, .button-link a{
+    border-radius: 50px;
+}
+
+.button-link button:hover, .button-link a:hover{
+    transform: scale(105%);
+}
+
+.division-line{
+    border: 1px #d0d0d0 solid;
+    border-radius: 50px;
+    height: auto;
+    margin: 0px 30px
+}
+
+.stocks-table{
+    margin: 10px;
+    cursor: default;
+}
+
+.header-row{
+    background-color: #efefef;
+}
+
+.header-row .table-column{
+    padding-left: 10px;
+}
+
+.table-row .first-column{
+    font-weight: bolder;
+    width: 8%;
+}
+
+.table-row{
+    vertical-align: middle;
+}
+
+.table-row:hover{
+    background-color: #ffffff;
+    filter: brightness(0.96);
+}
+
+.table-row .record-value{
+    padding-left: 0.5rem;
+    border: none;
+}
+
+.green{
+    color: #00d700
+}
+
+.red{
+    color: #f10000
+}
+
+.actions{
+    width: 10%
+}
+
+.add-button{
+    cursor: pointer;
+    margin-right: 10px;
+    transition: 0.5s;
+}
+
+.add-button:hover{
+    transform: scale(1.05);
+}
+
+.details-button{
+    cursor: pointer;
+    color: #000000;
+    transition: 0.5s;
+} 
+
+.details-button:hover{
+    transform: translateX(5px) scale(1.05);
+}
+
+.search-container{
+    text-align: center;
+    margin: 20px 0px 30px 0px; 
+}
+
+.stocks-searchbar{
+    height: 40px;
+    width: 80%;
+    border-radius: 50px;
+    background-color: #f4f4f4;
+    border: 1px #e5e5e5 solid;
+    padding-left: 15px;
+    outline: none;
+}
+
+.search-icon{
+    margin-left: 10px;
+    cursor: pointer;
+    transition: 0.5s;
+}
+
+.search-icon:hover{
+    transform: scale(1.20);
+
+}
+
+.nav-buttons, .modal-buttons{
+    margin-right: 10px;
+    border-radius: 50px;
+    transition: 0.5s;
+}
+
+.nav-buttons:hover, .modal-buttons:hover{
+    transform: scale(1.05);
+}
+
+.modal-body{
+    padding: 10px 20px;
+}
+
+.stock-details{
+    text-align: center;
+}
+
+.go-back-link{
+    text-decoration: none;
+    color: #000000
+}
+
+.go-back-link:hover{
+    color: #000000
+}
+
+.go-back-button{
+    cursor: pointer;
+    margin: 10px 5px 10px 15px;
+    color: #000000;
+    transition: 0.5s;
+}
+
+.go-back-button:hover{
+    transform: scale(1.10);
+}
