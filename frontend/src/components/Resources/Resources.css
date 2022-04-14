@@ -141,6 +141,7 @@
     }
 
     .resources-review-corner {
+        order: 1;
         width: 90%;
         margin: 0px 20px;
         margin-top: 40px;
@@ -148,6 +149,7 @@
     }
 
     .resources-tips-tricks {
+        order: 0;
         width: 90%;
         height: auto;
         margin: 20px;
