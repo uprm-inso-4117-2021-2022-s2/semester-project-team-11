@@ -35,10 +35,14 @@ def handle_users():
 #                               STOCK                               #
 #####################################################################
 
-@app.route('/stocker/stock/savedStocks/<int:userid>', methods=["GET"])
+@app.route('/stocker/stock/savedStocks/<int:userid>', methods=["GET", "POST", "DELETE"])
 def handle_user_stocks(userid):
     if request.method == 'GET':
         return BaseStock().getUserSavedStocks(userid)
+    elif request.method == 'POST':
+        return BaseStock().saveUserStock(request.json, userid)
+    elif request.method == 'DELETE':
+        return BaseStock().removeUserStock(request.json, userid)
     else:
         return jsonify("METHOD NOT ALLOWED"), 405
 
