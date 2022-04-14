@@ -32,11 +32,14 @@ function Home() {
                             <Carousel className='w-50 p-3' >
 
                                 <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={educationalResources}
-                                        alt="First slide"
-                                    />
+                                    <a href="/resources">
+                                        <img
+                                            className="d-block w-100"
+                                            src={educationalResources}
+                                            alt="First slide"
+                                        />
+                                    </a>
+
                                     <Carousel.Caption>
                                         <h3>Educational Resources</h3>
                                     </Carousel.Caption>

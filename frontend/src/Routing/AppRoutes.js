@@ -5,6 +5,7 @@ import Register from '../components/Register/Register'
 import Login from '../components/Login/Login'
 import Stocks from '../components/Stocks/Stocks'
 import StockDetails from '../components/StockDetails/StockDetails'
+import Resources from '../components/Resources/Resources'
 
 export default function AppRoutes() {
     return (
@@ -14,7 +15,8 @@ export default function AppRoutes() {
                 <Route path="/register" element={<Register />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/stocks" element={<Stocks />} />
-                <Route path="/stocks/details/:symbol" element={<StockDetails/>} />
+                <Route path="/stocks/details/:symbol" element={<StockDetails />} />
+                <Route path="/resources" element={<Resources />}/>
             </Routes>
         </BrowserRouter>
     )
