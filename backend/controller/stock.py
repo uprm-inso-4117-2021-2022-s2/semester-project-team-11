@@ -39,7 +39,7 @@ class BaseStock:
         if saved:
             return jsonify("STOCK WAS SAVED SUCCESSFULLY."), 201
         else:
-            return jsonify("EITHER STOCK WAS ALREADY SAVED OR USER DOESN'T EXIST."), 500
+            return jsonify("STOCK WAS NOT ABLE TO BE SAVED."), 400
 
 
     def removeUserStock(self, json, userid):
@@ -47,11 +47,11 @@ class BaseStock:
         dao = StockDAO()
         stock = dao.getStockBySymbol(symbol)
         if not stock:
-            return jsonify("STOCK SYMBOL NOT FOUND."), 500
+            return jsonify("STOCK WAS NOT ABLE TO BE REMOVED."), 400
 
         removed = dao.removeUserStock(userid, stock[0])
         dao.conn.close()
         if removed:
-            return jsonify("USER STOCK WAS REMOVED SUCCESSFULLY."), 201
+            return jsonify("STOCK WAS REMOVED SUCCESSFULLY."), 201
         else:
-            return jsonify("USER DIDN'T HAVE THE STOCK SAVED."), 500
+            return jsonify("STOCK WAS NOT ABLE TO BE REMOVED."), 400
