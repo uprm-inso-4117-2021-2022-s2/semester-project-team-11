@@ -2,7 +2,7 @@ import React from 'react'
 import './Resources.css'
 import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import { Container, Col, Row } from "react-bootstrap";
-import logo from '../../../src/images/Stocks_GrowthCombined.png';
+import logo from '../../../src/images/StockLogo.svg';
 import stock_image from '../../../src/images/Resources-Stock-Image-1.jpg'
 import fidelity_image from '../../../src/images/fidelity-logo.png'
 
