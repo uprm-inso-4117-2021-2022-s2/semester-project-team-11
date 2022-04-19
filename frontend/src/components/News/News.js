@@ -1,4 +1,4 @@
-import {React,useState} from 'react'
+import {React,useState,useEffect} from 'react'
 import { Table,Navbar,Container } from 'react-bootstrap';
 import { BsSearch } from "react-icons/bs";
 import axios from 'axios';
@@ -10,7 +10,6 @@ export default function News() {
 
     const [searchWord, setSearchWord] = useState("");
     const [searchResult, setSearchResult] = useState({})
-
     const [searchResultGlobal , setSearchResultGlobal] = useState({})
 
 
@@ -18,16 +17,26 @@ export default function News() {
         method: 'GET',
         url: 'https://newsapi.org/v2/everything',
         params: {q: searchWord, sortBy: 'publishedAt', apiKey: "360ced0df45347fdb65522b2e8bf373a" },
-      };
+    };
 
     
     const globalNews = {
         method: 'GET',
         url: 'https://newsapi.org/v2/everything',
         params: {q: "global news", sortBy: 'publishedAt', apiKey: "360ced0df45347fdb65522b2e8bf373a" },
-      };
+    };
+
+      useEffect(async () => {
+        axios.request(globalNews).then(function (response) {
+            setSearchResultGlobal(response.data);
+        }).catch(function (error) { 
+            console.error(error);
+        })
+
+        
 
 
+        });
 
     const searchAction = (e) => {
 
@@ -39,15 +48,9 @@ export default function News() {
 
             })
         }
-        axios.request(globalNews).then(function (response) {
-            setSearchResultGlobal(response.data);
-        }).catch(function (error) { 
-            console.error(error);
-
-        })
-
     }
 
+    
     const searchBar =
         <div className='news-searchBar-container'>
             <input type="text"
@@ -81,7 +84,7 @@ export default function News() {
 
         <div className='news-flex-container'>
                 <div className='news-left-container'>
-                    <div className='news-searchBar-container'>{searchBar}</div>
+                    {searchBar}
                 
                     {searchResult.articles &&
                         <Table responsive>
