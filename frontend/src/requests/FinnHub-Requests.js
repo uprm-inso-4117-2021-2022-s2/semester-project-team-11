@@ -34,12 +34,23 @@ export function marketNews(category, minId, setFunction) {
     });
 }
 
-export function stockDetails(symbol, setFunction) {
+export function stockProfile(symbol, setFunction) {
     const finnhub = require('finnhub');
     const api_key = finnhub.ApiClient.instance.authentications['api_key'];
     api_key.apiKey = process.env.FINNHUB_API_KEY;
     const finnhubClient = new finnhub.DefaultApi()
     finnhubClient.companyProfile2({ symbol }, (error, data, response) => {
+        if (error === null) setFunction(data);
+        else console.log('error', error);
+    });
+};
+
+export function stockQuote(symbol, setFunction) {
+    const finnhub = require('finnhub');
+    const api_key = finnhub.ApiClient.instance.authentications['api_key'];
+    api_key.apiKey = process.env.FINNHUB_API_KEY;
+    const finnhubClient = new finnhub.DefaultApi()
+    finnhubClient.quote(symbol, (error, data, response) => {
         if (error === null) setFunction(data);
         else console.log('error', error);
     });

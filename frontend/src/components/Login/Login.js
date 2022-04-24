@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
-import Form from 'react-bootstrap/Form'
+import { Form } from 'react-bootstrap'
 import Button from 'react-bootstrap/Button'
 import InputGroup from 'react-bootstrap/InputGroup'
 import { BsFillEnvelopeFill, BsFillKeyFill } from "react-icons/bs";
 import { IoRocketOutline } from "react-icons/io5"
-import { hosts } from '../../../config/hosts';
+import { hosts } from '../../config/hosts';
 import { useNavigate } from 'react-router-dom'
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
-import { Container, Col, Row } from "react-bootstrap";
-import logo from '../../../../src/images/StockLogo.svg';
-import "./Login.css";
+import NavbarComponent from '../Navbar/Navbar';
 
-export default function Login( {toggle} ) {
+export default function Login() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
@@ -81,10 +77,8 @@ export default function Login( {toggle} ) {
                     </InputGroup>
                 </Form.Group>
 
-                <div className='form-button-container'>
-                    <Button variant="dark" onClick={ userAuthentication }>
-                        Login
-                    </Button>
+                <div className='button-link'>
+                    <Button variant="dark" onClick={ userAuthentication }> Login </Button>
                 </div>
             </Form>
         )
@@ -97,8 +91,8 @@ export default function Login( {toggle} ) {
                 <h1>
                     Want to join Stocker? <IoRocketOutline className='toggler-icon'/>
                 </h1>
-                <div className='form-button-container'>
-                    <Button variant="dark" onClick={ () => toggle(false)}> Register </Button>
+                <div className='button-link'>
+                    <Button variant="dark" href='/register'> Register </Button>
                 </div>
 
             </div>  
@@ -109,25 +103,12 @@ export default function Login( {toggle} ) {
 
     return (
         <>
-        <Navbar className="color-nav">
-        <Container>
-              <Navbar.Brand href="/">
-                <img
-                alt=""
-                src={logo}
-                width="120"
-                height="50"
-                className="d-inline-block align-top"
-                    />{' '}
-              </Navbar.Brand>
-              </Container>
-
-        </Navbar>
-        <div className='login-register-container'>
+            <NavbarComponent />
+            <div className='login-register-container'>
                 {renderLogin()}
                 <div className='division-line'></div>
                 {renderMessage()}
             </div>
-            </>
+        </>
     )
 }

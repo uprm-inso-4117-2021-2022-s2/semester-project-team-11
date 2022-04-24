@@ -1,41 +1,19 @@
-import React, { Component } from 'react'
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, Navbar, NavDropdown, Card, Button, Carousel } from 'react-bootstrap';
-import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
-import { Container, Col, Row, Form } from "react-bootstrap";
-import './Home.css';
-import logo from '../../../src/images/StockLogo.svg';
+import { Carousel } from 'react-bootstrap';
 import stocksImage from '../../../src/images/Stocks.jpg';
 import educationalResources from '../../../src/images/EducationalResources.jpg';
 import economicIndicators from '../../../src/images/EconomicIndicators.jpg';
 import news from '../../../src/images/News.jpg';
-// import NavBar from "frontend/src/components/Navbar/Navbar.js";
+import NavbarComponent from "../Navbar/Navbar.js";
+import './Home.css';
 
 function Home() {
 
         return (
             <>
-            <Navbar className="color-nav" >
-                
-              <Container>
-              <Navbar.Brand href="/">
-                <img
-                alt=""
-                src={logo}
-                width="120"
-                height="50"
-                className="d-inline-block align-top"
-                    />{' '}
-              </Navbar.Brand>
-              <Nav className="ml-auto">
-                <Nav.Link href="/register">Register</Nav.Link>
-                <Nav.Link href="/login">Login</Nav.Link>
-              </Nav>
-              </Container>
-            </Navbar>
-
-
+            <NavbarComponent nav={ localStorage.getItem('userid') ? false : true } />
             <div>
                 <div className='container-fluid' >
                     <div className="row">
@@ -64,11 +42,13 @@ function Home() {
                                 </Carousel.Item>
 
                                 <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={stocksImage}
-                                        alt="Second slide"
-                                    />
+                                    <a href='/stocks'>
+                                        <img
+                                            className="d-block w-100"
+                                            src={stocksImage}
+                                            alt="Second slide"
+                                        />
+                                    </a>
 
                                     <Carousel.Caption>
                                         <h3>Stocks</h3>
