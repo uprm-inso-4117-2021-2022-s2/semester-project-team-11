@@ -1,8 +1,5 @@
 import React from 'react'
-import './Resources.css'
-import { Nav, Navbar, NavDropdown } from 'react-bootstrap';
-import { Container, Col, Row } from "react-bootstrap";
-import logo from '../../../src/images/Stocks_GrowthCombined.png';
+import NavbarComponent from '../Navbar/Navbar';
 import stock_image from '../../../src/images/Resources-Stock-Image-1.jpg'
 import fidelity_image from '../../../src/images/fidelity-logo.png'
 
@@ -11,19 +8,7 @@ import fidelity_image from '../../../src/images/fidelity-logo.png'
 const Resources = () => {
   return (
       <>
-      <Navbar className="color-nav">
-          <Container>
-          <Navbar.Brand href="/">
-                <img
-                alt=""
-                src={logo}
-                width="120"
-                height="50"
-                className="d-inline-block align-top"
-                    />{' '}
-              </Navbar.Brand>
-          </Container>
-      </Navbar>
+      <NavbarComponent />
       <div className='resources-container'>
         <div className='resources-upper-sidescroll'>
             <div className='resources-sidescroll-items'>

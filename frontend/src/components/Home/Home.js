@@ -1,7 +1,7 @@
 import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, Button, Carousel } from 'react-bootstrap';
+import { Carousel } from 'react-bootstrap';
 import stocksImage from '../../../src/images/Stocks.jpg';
 import educationalResources from '../../../src/images/EducationalResources.jpg';
 import economicIndicators from '../../../src/images/EconomicIndicators.jpg';
@@ -10,14 +10,10 @@ import NavbarComponent from "../Navbar/Navbar.js";
 import './Home.css';
 
 function Home() {
-        const NavComponent = <Nav className="ml-auto button-link">
-                                <Button variant="dark" className='nav-buttons' href='/register'> Register </Button>
-                                <Button variant="dark" className='nav-buttons' href='/login'> Login </Button>
-                            </Nav>
 
         return (
             <>
-            <NavbarComponent NavComponent={ NavComponent }/>
+            <NavbarComponent nav={ localStorage.getItem('userid') ? false : true } />
             <div>
                 <div className='container-fluid' >
                     <div className="row">
@@ -46,11 +42,13 @@ function Home() {
                                 </Carousel.Item>
 
                                 <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={stocksImage}
-                                        alt="Second slide"
-                                    />
+                                    <a href='/stocks'>
+                                        <img
+                                            className="d-block w-100"
+                                            src={stocksImage}
+                                            alt="Second slide"
+                                        />
+                                    </a>
 
                                     <Carousel.Caption>
                                         <h3>Stocks</h3>

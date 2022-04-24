@@ -1,66 +1,159 @@
-import React, { useState, useEffect } from 'react'
-import { Nav, Button, Table, Modal } from 'react-bootstrap';
+import React, { useState, useEffect} from 'react'
+import { Button, Table, Modal, Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom'
 import { BsSearch, BsFillArrowRightCircleFill, BsPlusCircleFill } from 'react-icons/bs';
+import { stockSearch } from '../../requests/FinnHub-Requests';
 import { AiOutlineStock } from 'react-icons/ai'
-import axios from 'axios'
-import stockJSON from './stocks.json'
 import NavbarComponent from "../Navbar/Navbar.js";
+import { hosts } from '../../config/hosts';
 
 export default function Stocks() {
 
-    const [stocks, setStocks] = useState([])
+    const [stocks, setStocks] = useState({})
+    const [loading, setLoading] = useState(false)
     const [searchKeyword, setSearchKeyword] = useState('')
     const [openRegisterModal, setOpenRegisterModal] = useState(false)
+    const [currentPage, setCurrentPage] = useState(1)
+    const [lastPage, setLastPage] = useState(1)
+    const [stocksPage, setStocksPage] = useState([])
+    const [userStocks, setUserStocks] = useState([])
+    const [title, setTitle] = useState('')
 
-    useEffect(() => setStocks(stockJSON) || fetchTrending(), [])
+    useEffect(() => {
+        const storage = localStorage.getItem('stocksState')
+        const restore = localStorage.getItem('fromDetails')
+        if(storage && restore){
+            const state = JSON.parse(storage)
+            setStocks(state.stocks)
+            setCurrentPage(state.currentPage)
+            setTitle(state.title)
+            setSearchKeyword(state.searchKeyword)
+        }else{
+            setLoading(true)
+            setTitle('Stocks')
+            stockSearch('', setStocks)
+        }
+        fetchUserStocks()
+        localStorage.removeItem('stocksState')
+        localStorage.removeItem('fromDetails')
+    }, [])
 
-    const fetchTrending = async () => {
-        const options = {
-            method: 'GET',
-            url: 'https://yh-finance.p.rapidapi.com/market/get-trending-tickers',
-            params: {region: 'US'},
-            headers: {
-              'X-RapidAPI-Host': 'yh-finance.p.rapidapi.com',
-              'X-RapidAPI-Key': '55fd0197c9mshb601da3a6bf10cep1d2446jsn67e22822ba81'
-            }
-        };
+    useEffect(() => {
+        const last = parseInt(stocks.count / 15) + 1
+        setLastPage(last)
+    }, [stocks])
+
+    useEffect(() => {
+        const start = (currentPage - 1) * 15;
+        const end = currentPage * 15 < stocks.count ? currentPage * 15 : stocks.count ? stocks.count : 0;
+        stocks.result && setStocksPage(stocks.result.slice(start, end))
+        stocks.result && setLoading(false)
+    }, [stocks, currentPage])
+
+    const fetchUserStocks = async () => {
+        const userid = localStorage.getItem('userid')
+        if(!userid){ return ; }
 
         try{
-            const { data }= await axios(options)
-            setStocks(data.finance.result[0].quotes)
-        }catch(e){
-            console.error(e)
+            const response = await fetch(`${hosts['heroku']}/stocker/stock/savedStocks/${userid}`)
+            const data = await response.json()
+            const stocks = data.map(stock => stock.symbol[0])
+            setUserStocks(stocks)
+        }
+        catch(e){
+            console.log("Error");
+            localStorage.clear();
+            console.log(e)
         }
     }
 
     const fetchSearch = () => {
-        console.log('search:', searchKeyword)
+        const title = searchKeyword === '' ? 'Stocks' : `Search for '${searchKeyword}'`
+        resetStocksStates()
+        setTitle(title)
+        setLoading(true)
+        stockSearch(searchKeyword, setStocks)
     }
 
-    const formatPosNeg = (cond, value, d) => cond ? `+${value.toFixed(d)}` : `${value.toFixed(d)}` 
-
-    const saveStock = (stock) => {
-        setOpenRegisterModal(true)
-        console.log('save:', stock.symbol)
+    const resetStocksStates = () => {
+        setStocks({})
+        setStocksPage([])
+        setCurrentPage(1)
+        setLastPage(1)
     }
+
+    const handleStock = async (stock) => {
+        const userid = localStorage.getItem('userid')
+        if(!userid){
+            setOpenRegisterModal(true)
+            return ;
+        }
+
+        if(userStocks.includes(stock.symbol)){
+            const request = {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ 'symbol' : stock.symbol })
+            };
     
-    const NavComponent = <Nav className="ml-auto">
-                            <Button variant='dark' className='nav-buttons' href='/register'> Register </Button>
-                            <Button variant='dark' className='nav-buttons' href='/login'> Login </Button>
-                        </Nav>
+            try{
+                const response = await fetch(`${hosts['heroku']}/stocker/stock/savedStocks/${userid}`, request)
+                const data = await response.json()
+                if(data === 'STOCK WAS REMOVED SUCCESSFULLY.'){
+                    const filtered = userStocks.filter(symbol => symbol !== stock.symbol )
+                    setUserStocks(filtered)
+                }
+                console.log(data)
+                return ;
+            }
+            catch(e){
+                console.log("Error");
+                console.log(e)
+                return ;
+            }
+
+        }
+        const request = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 'symbol' : stock.symbol })
+        };
+
+        try{
+            const response = await fetch(`${hosts['heroku']}/stocker/stock/savedStocks/${userid}`, request)
+            const data = await response.json()
+            if(data === 'STOCK WAS SAVED SUCCESSFULLY.'){
+                setUserStocks([...userStocks, stock.symbol])
+            }
+            console.log(data)
+        }
+        catch(e){
+            console.log("Error");
+            console.log(e)
+        }
+        
+    }
+
+    const saveState = () => {
+        const state = { stocks, currentPage, title, searchKeyword }
+        localStorage.setItem('stocksState', JSON.stringify(state))
+    }
 
     const renderSearchBar = () => {
         return (
             <div className='search-container'>
                 <input 
-                type='text' 
-                name='searchKeyword'
-                value={ searchKeyword }
-                placeholder='Search...'
-                className='stocks-searchbar'
-                onChange={ e => setSearchKeyword(e.target.value) }
-                onKeyDown={ e => e.key === 'Enter' && fetchSearch() }>
+                    type='text' 
+                    name='searchKeyword'
+                    value={ searchKeyword }
+                    placeholder='Search...'
+                    className='searchbar'
+                    onChange={ e => setSearchKeyword(e.target.value) }
+                    onKeyDown={ e => e.key === 'Enter' && fetchSearch() }>
                 </input>
                 < BsSearch className='search-icon' name='search' size={20} onClick={ () => fetchSearch() } />
             </div>
@@ -68,38 +161,30 @@ export default function Stocks() {
 
     }
 
-    const renderStocks = () => {
+    const Stocks = () => {
         return(
-            <>
+            <div className='stocks-container'>
                 <Table className='stocks-table' size='sm'>
                     <thead className='table-header'>
                         <tr className='header-row'>
                             <th className='table-column first-column'>Symbol</th>
                             <th className='table-column'>Name</th>
-                            <th className='table-column'>Last Price</th>
-                            <th className='table-column'>Change</th>
-                            <th className='table-column'>% Change</th>
-                            <th className='table-column'>Save</th>
+                            <th className='table-column'>Save/Remove</th>
                             <th className='table-column'>Details</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {stocks.length !== 0 && stocks.map(stock => {
-                            const isChangePos = stock.regularMarketChange >= 0 
-                            const isPercentPos = stock.regularMarketChangePercent >= 0
+                        {stocksPage.length !== 0 && stocksPage.map((stock, index) => {
                             return (
-                                <tr className='table-row' key={stock.symbol}> 
+                                <tr className='table-row' key={index}> 
                                     <td className='record-value first-column'>{ stock.symbol }</td>
-                                    <td className='record-value'>{ stock.shortName }</td>
-                                    <td className='record-value'>{ stock.regularMarketPrice.toFixed(2) }</td>
-                                    <td className={ isChangePos ? `record-value green` : `record-value red` }> { formatPosNeg(isChangePos, stock.regularMarketChange, 4) }</td>
-                                    <td className={ isPercentPos ? `record-value green` : `record-value red` }> { formatPosNeg(isPercentPos, stock.regularMarketChangePercent, 2) + '%'}</td>
+                                    <td className='record-value'>{ stock.description }</td>
                                     <td className='record-value actions'>
-                                        <BsPlusCircleFill className='add-button' size={30} onClick={ () => saveStock(stock) }/>
+                                        <BsPlusCircleFill className={userStocks.includes(stock.symbol) ? 'remove-button' : 'add-button'} size={30} onClick={ () => handleStock(stock) }/>
                                     </td>
                                     <td className='record-value actions'>
-                                        <Link to={`/stocks/details/${stock.symbol}`}>
-                                            <BsFillArrowRightCircleFill className='details-button' size={30}/>
+                                        <Link to={`/stocks/details/${stock.symbol}`} onClick={ saveState }>
+                                            <BsFillArrowRightCircleFill className='details-button' size={30} />
                                         </Link>
                                     </td>
                                 </tr>
@@ -107,12 +192,29 @@ export default function Stocks() {
                         })}
                     </tbody>
                 </Table>
-                { stocks.length === 0 && <p style={{textAlign: 'center'}}> No results found. </p>}
-            </>
+                { loading ? <p style={{textAlign: 'center'}}> { 'Loading...' } </p> : !stocks.count ? <p style={{textAlign: 'center'}}> { 'No Results' } </p> : null}
+                { stocksPage.length !== 0 && <PageControls /> }
+            </div>
         )
     }
 
-    const renderRegisterModal = () => {
+    const PageControls = () => {
+        return(
+                <Pagination className='pagination-component'>
+                    {currentPage - 3 > 0 && <Pagination.First onClick={ () => setCurrentPage(1) }/>}
+                    {currentPage - 3 > 0 && <Pagination.Prev onClick={ () => setCurrentPage(currentPage - 1) }/>}
+                    {currentPage - 2 > 0 && <Pagination.Item onClick={ () => setCurrentPage(currentPage - 2) }>{currentPage - 2}</Pagination.Item>}
+                    {currentPage - 1 > 0 && <Pagination.Item onClick={ () => setCurrentPage(currentPage - 1) }>{currentPage - 1}</Pagination.Item>}
+                    <Pagination.Item active id={currentPage}>{currentPage}</Pagination.Item>
+                    {currentPage + 1 <= lastPage && <Pagination.Item onClick={ () => setCurrentPage(currentPage + 1) }>{currentPage + 1}</Pagination.Item>}
+                    {currentPage + 2 <= lastPage && <Pagination.Item onClick={ () => setCurrentPage(currentPage + 2) }>{currentPage + 2}</Pagination.Item>}
+                    {currentPage + 3 <= lastPage && <Pagination.Next onClick={ () => setCurrentPage(currentPage + 1) }/>}
+                    {currentPage + 3 <= lastPage && <Pagination.Last onClick={ () => setCurrentPage(lastPage) }/>}
+                </Pagination>
+        )
+    }
+
+    const RegisterModal = () => {
         return(
             <Modal show={ openRegisterModal } onHide={ () => setOpenRegisterModal(false) }>
                 <Modal.Header>
@@ -122,22 +224,22 @@ export default function Stocks() {
                     <p>In order to be able to save stocks you must be registered.</p> 
                     <p>Once registered, you will be provided with a Dashboard where all your saved stocks will be available to you.</p>
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button className='modal-buttons' variant='tertiary' onClick={ () => setOpenRegisterModal(false) }> Cancel </Button>
-                    <Button variant="dark" className='modal-buttons' href='/register'> Join Us </Button>
+                <Modal.Footer className='button-link'>
+                    <Button variant='tertiary' onClick={ () => setOpenRegisterModal(false) }> Cancel </Button>
+                    <Button variant="dark" href='/register'> Join Us </Button>
                 </Modal.Footer>
             </Modal>
         )
     } 
     
-
     return(
         <>
-            <NavbarComponent NavComponent={ NavComponent } />
+            <NavbarComponent nav={ localStorage.getItem('userid') ? false : true } />
             <div className='container'>
                 { renderSearchBar() }
-                { renderStocks() }
-                { renderRegisterModal() }
+                <h3 style={{paddingLeft: '15%'}}>{ title }</h3>
+                <Stocks />
+                <RegisterModal />
             </div>
             
         </>
