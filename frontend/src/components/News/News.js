@@ -1,129 +1,99 @@
 import {React,useState,useEffect} from 'react'
-import { Table,Navbar,Container } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 import { BsSearch } from "react-icons/bs";
-import axios from 'axios';
-import logo from '../../../src/images/Stocks_GrowthCombined.png';
-import "./News.css"
+import { marketNews } from '../../requests/FinnHub-Requests';
+import NavbarComponent from '../Navbar/Navbar';
 
 
 export default function News() {
 
     const [searchWord, setSearchWord] = useState("");
-    const [searchResult, setSearchResult] = useState({})
-    const [searchResultGlobal , setSearchResultGlobal] = useState({})
-
-
-    const searchRequest = {
-        method: 'GET',
-        url: 'https://newsapi.org/v2/everything',
-        params: {q: searchWord, sortBy: 'publishedAt', apiKey: "360ced0df45347fdb65522b2e8bf373a" },
-    };
-
+    const [searchResult, setSearchResult] = useState([])
+    const [generalNews , setGeneralNews] = useState([])
+    const [forexNews , setForexNews] = useState([])
+    const [cryptoNews , setCryptoNews] = useState([])
+    const [mergerNews , setMergerNews] = useState([])
+    const [allNews , setAllNews] = useState([])
     
-    const globalNews = {
-        method: 'GET',
-        url: 'https://newsapi.org/v2/everything',
-        params: {q: "global news", sortBy: 'publishedAt', apiKey: "360ced0df45347fdb65522b2e8bf373a" },
-    };
 
-      useEffect(async () => {
-        axios.request(globalNews).then(function (response) {
-            setSearchResultGlobal(response.data);
-        }).catch(function (error) { 
-            console.error(error);
-        })
+    useEffect(() => {
+        marketNews('general', {}, setGeneralNews)
+        marketNews('forex', {}, setForexNews)
+        marketNews('crypto', {}, setCryptoNews)
+        marketNews('merger', {}, setMergerNews)
+    }, [])
 
-        
-
-
-        });
+    useEffect(() => {
+        setAllNews([...generalNews, ...forexNews, ...cryptoNews, ...mergerNews])
+    }, [generalNews, forexNews, cryptoNews, mergerNews])
 
     const searchAction = (e) => {
 
         if (e.type === "click" || e.key === 'Enter') {
-            axios.request(searchRequest).then(function (response) {
-                setSearchResult(response.data);
-            }).catch(function (error) { 
-                console.error(error);
-
+            const search = allNews.filter(item => {
+                const str = `${item.headline} ${item.summary} ${item.source} ${item.category} ${item.related}`
+                return str.toLowerCase().includes(searchWord.toLowerCase())
             })
+            setSearchResult(search)
         }
     }
 
-    
     const searchBar =
-        <div className='news-searchBar-container'>
+        <div className='search-container'>
             <input type="text"
-            
                 placeholder="Search for a keyword..."
                 value={searchWord}
                 name="searchWord"
+                className='searchbar'
                 onChange={(e) => setSearchWord(e.target.value)}
                 onKeyDown={searchAction}
-                style={{ height: 40, width: "80%", borderRadius: 15, borderColor: 'white', backgroundColor: "lightgray" }}
+                style={{width: '80%'}}
             />
-            < BsSearch name='search' onClick={searchAction} style={{ margin: '5px' }} />
+            < BsSearch className='search-icon' name='search' onClick={searchAction} style={{ margin: '5px' }} />
         </div>;
 
     return (
         <>
-        <Navbar className="color-nav">
-            <Container>
-            <Navbar.Brand href="/">
-                  <img
-                  alt=""
-                  src={logo}
-                  width="120"
-                  height="50"
-                  className="d-inline-block align-top"
-                      />{' '}
-                </Navbar.Brand>
-            </Container>
-        </Navbar>
-        
-
-        <div className='news-flex-container'>
+        <NavbarComponent nav={ localStorage.getItem('userid') ? false : true }/>
+        <div className='container news-flex-container'>
                 <div className='news-left-container'>
                     {searchBar}
+                    <div className='search-results-table'>
+                        {searchResult.length !== 0 &&
+                            <Table >
+                                <tbody>
+                                    {searchResult.map((item, index) => (
+                                        <tr key={index}>
+                                            <td className='left-news-box'>
+                                                <img src={`${item.image}`} alt="" width="225" height="150" />
+                                                <div>
+                                                    <div><b style={{color:'#68b0ab'}}>{item.category.toUpperCase()}</b> {item.source}</div>
+                                                    <div><h5 onClick={() => window.open(item.url, '_blank', 'noreferrer')}><b>{item.headline}</b></h5></div>
+                                                    <div className='two-lines-text'>{item.summary}</div>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </Table>}
+                    </div>
                 
-                    {searchResult.articles &&
-                        <Table responsive>
-                            <thead>
-                                <tr>
-                                    <th key={1}>News Results</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {searchResult.articles.map((item) => (
-                                    <tr>
-                                        <img src={`${item.urlToImage}`} alt="" width="200" height="150" />
-                                        <td key={item.key}>
-                                            <div><h5><b>{item.title}</b></h5></div>
-                                             <div>{item.description}</div>
-                                             <div><a href={item.url}>Read More</a></div>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
-                    }
                 </div>
                 <div className='news-right-container'>
-                    {searchResultGlobal.articles &&
-                        <Table>
-                            <thead>
-                                <tr>
-                                    <th key={3}>YOU MAY ALSO LIKE</th>
-                                </tr>
-                            </thead>
+                    <div className='news-sticky-header'>
+                        <p>YOU MAY ALSO LIKE</p>
+                    </div>
+                    {generalNews.length !== 0 &&
+                        <Table >
                             <tbody>
-                                {searchResultGlobal.articles.map((item) => (
-                                    <tr>
-                                        <img src={`${item.urlToImage}`} alt="" width="200" height="150" />
-                                        <td key={item.key}>
-                                            <div><h5><b>{item.title}</b></h5></div>
-                                             <div>{item.description}</div>
-                                             <div><a href={item.url}>Read More</a></div>
+                                {generalNews.slice(0,20).map((item, index) => (
+                                    <tr onClick={() => window.open(item.url, '_blank', 'noreferrer')} key={index}>
+                                        <td className='right-news-box'>
+                                            <div>
+                                                <h6>{item.category.toUpperCase()}</h6>
+                                                <h6 className='three-lines-text'><b>{item.headline}</b></h6>
+                                            </div>
+                                            <img src={`${item.image}`} alt="" width="150" height="100" />
                                         </td>
                                     </tr>
                                 ))}

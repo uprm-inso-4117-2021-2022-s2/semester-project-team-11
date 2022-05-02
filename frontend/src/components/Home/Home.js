@@ -56,11 +56,13 @@ function Home() {
                                 </Carousel.Item>
 
                                 <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={news}
-                                        alt="Third slide"
-                                    />
+                                    <a href='/news'>
+                                        <img
+                                            className="d-block w-100"
+                                            src={news}
+                                            alt="Third slide"
+                                        />
+                                    </a>
                                     <Carousel.Caption>
                                         <h3>News</h3>
                                     </Carousel.Caption>
