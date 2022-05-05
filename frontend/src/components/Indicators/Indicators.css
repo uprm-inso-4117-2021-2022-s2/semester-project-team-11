@@ -1,0 +1,6 @@
+.indicators-container {
+    display: flex;
+    flex-flow: column nowrap;
+    margin: 60px auto;
+    min-height: 800px;
+}

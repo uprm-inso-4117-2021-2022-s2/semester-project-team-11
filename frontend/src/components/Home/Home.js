@@ -57,11 +57,13 @@ function Home() {
                                     </a>
                                 </Carousel.Item>
                                 <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={economicIndicators}
-                                        alt="Fourth slide"
-                                    />
+                                    <a href='/indicators'>
+                                        <img
+                                            className="d-block w-100"
+                                            src={economicIndicators}
+                                            alt="Fourth slide"
+                                        />
+                                    </a>
                                 </Carousel.Item>
                             </Carousel>
                         </div>
