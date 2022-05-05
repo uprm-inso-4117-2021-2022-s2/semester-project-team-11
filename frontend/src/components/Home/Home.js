@@ -1,109 +1,96 @@
-import React, { Component } from 'react'
+import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Nav, Navbar, NavDropdown, Card, Button, Carousel } from 'react-bootstrap';
-import NavbarToggle from 'react-bootstrap/esm/NavbarToggle';
-import { Container, Col, Row, Form } from "react-bootstrap";
+import { Carousel } from 'react-bootstrap';
+import stocksImage from '../../../src/images/Stocks.jpg';
+import educationalResources from '../../../src/images/EducationalResources.jpg';
+import economicIndicators from '../../../src/images/EconomicIndicators.jpg';
+import news from '../../../src/images/News.jpg';
+import NavbarComponent from "../Navbar/Navbar.js";
 import './Home.css';
-// import {
-//   MDBCarousel,
-//   MDBCarouselInner,
-//   MDBCarouselItem,
-//   MDBView,
-//   MDBContainer
-// } from "mdbreact";
-import logo from '../../../src/images/Stocks_GrowthCombined.png';
-// import NavBar from "frontend/src/components/Navbar/Navbar.js";
 
-class Home extends Component {
-  render() {
-    return (
-      <>
-        <Navbar className="color-nav" >
-          <Container>
-            <Navbar.Brand href="#home">
-              <img
-                alt=""
-                src={logo}
-                width="120"
-                height="50"
-                className="d-inline-block align-top"
-              />{' '}
-            </Navbar.Brand>
-            <Nav className="ml-auto">
-              <Nav.Link href="/register">Register</Nav.Link>
-              <Nav.Link href="/register">Login</Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
+function Home() {
 
+        return (
+            <>
+            <NavbarComponent nav={ localStorage.getItem('userid') ? false : true } />
+            <div>
+                <div className='container-fluid' >
+                    <div className="row">
+                        <div className="col-sm-12">
+                          <h2>   
 
-        <Carousel variant="dark">
-          <Carousel.Item interval={1000}>
+                          </h2>
+                        </div>
+                    </div>
+                    <div className="row">
+                        <div className="col-12">
+                            <Carousel className='w-50 p-3' >
 
-            <Carousel.Caption>
-              <h3>News</h3>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item interval={500}>
-            <Carousel.Caption>
-              <h3>Educational Resources</h3>
-              <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-            </Carousel.Caption>
-          </Carousel.Item>
-          <Carousel.Item>
-            <Carousel.Caption>
-              <h3>Dashboard</h3>
-            </Carousel.Caption>
-          </Carousel.Item>
-        </Carousel>
+                                <Carousel.Item>
+                                    <a href="/resources">
+                                        <img
+                                            className="d-block w-100"
+                                            src={educationalResources}
+                                            alt="First slide"
+                                        />
+                                    </a>
 
-        {/* <MDBContainer>
-      <MDBCarousel
-        activeItem={1}
-        length={3}
-        showControls={true}
-        showIndicators={false}
-        className="z-depth-1"
-        slide
-      >
-        <MDBCarouselInner>
-          <MDBCarouselItem itemId="1">
-            <MDBView>
-              <img
-                className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(45).webp"
-                alt="First slide"
-              />
-            </MDBView>
-          </MDBCarouselItem>
-          <MDBCarouselItem itemId="2">
-            <MDBView>
-              <img
-                className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(46).webp"
-                alt="Second slide"
-              />
-            </MDBView>
-          </MDBCarouselItem>
-          <MDBCarouselItem itemId="3">
-            <MDBView>
-              <img
-                className="d-block w-100"
-                src="https://mdbootstrap.com/img/Photos/Slides/img%20(47).webp"
-                alt="Third slide"
-              />
-            </MDBView>
-          </MDBCarouselItem>
-        </MDBCarouselInner>
-      </MDBCarousel>
-    </MDBContainer> */}
+                                    <Carousel.Caption>
+                                        <h3>Educational Resources</h3>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+
+                                <Carousel.Item>
+                                    <a href='/stocks'>
+                                        <img
+                                            className="d-block w-100"
+                                            src={stocksImage}
+                                            alt="Second slide"
+                                        />
+                                    </a>
+
+                                    <Carousel.Caption>
+                                        <h3>Stocks</h3>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+
+                                <Carousel.Item>
+                                    <a href='/news'>
+                                        <img
+                                            className="d-block w-100"
+                                            src={news}
+                                            alt="Third slide"
+                                        />
+                                    </a>
+                                    <Carousel.Caption>
+                                        <h3>News</h3>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+
+                                <Carousel.Item>
+                                    <img
+                                        className="d-block w-100"
+                                        src={economicIndicators}
+                                        alt="Fourth slide"
+                                    />
+                                    <Carousel.Caption>
+                                        <h3>Economic Indicators</h3>
+                                    </Carousel.Caption>
+                                </Carousel.Item>
+
+                            </Carousel>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
-      </>
-    );
-  }
-}
+
+
+          </>
+        );
+    }
 
 export default Home;
