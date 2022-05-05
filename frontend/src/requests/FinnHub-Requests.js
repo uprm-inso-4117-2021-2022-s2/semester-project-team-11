@@ -1,59 +1,110 @@
 
-export function stockPricesRequest(symbol, range, start, end, setFunction) {
-    const finnhub = require('finnhub');
-    const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-    api_key.apiKey = process.env.FINNHUB_API_KEY;
-    const finnhubClient = new finnhub.DefaultApi()
-    finnhubClient.stockCandles(symbol, range, start, end, (error, data, response) => {
-        if (error === null) setFunction(data);
-        else console.log('error', error);
-    });
+export async function stockPricesRequest(symbol, range, start, end, setFunction) {
+    const request = {
+        method: 'GET',
+        headers: {
+        },
+    };
+    try {
+        const response = await fetch(`https://finnhub.io/api/v1/stock/candle?symbol=${symbol}&resolution=${range}&from=${start}&to=${end}&token=${process.env.FINNHUB_API_KEY}`, request);
+        const data = await response.json();
+
+        if (data) setFunction(data);
+        else {
+            console.log(data);
+        }
+    }
+    catch (e) {
+        console.log("Error");
+        console.log(e)
+    }
 };
 
 
-export function stockSearch(symbol, setFunction) {
-    const finnhub = require('finnhub');
-    const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-    api_key.apiKey = process.env.FINNHUB_API_KEY;
-    const finnhubClient = new finnhub.DefaultApi()
-    finnhubClient.symbolSearch(symbol, (error, data, response) => {
-        if (error === null) setFunction(data);
-        else console.log('error', error);
-    });
+export async function stockSearch(symbol, setFunction) {
+    const request = {
+        method: 'GET',
+        headers: {
+        },
+    };
+    try {
+        const response = await fetch(`https://finnhub.io/api/v1/search?q=${symbol}&token=${process.env.FINNHUB_API_KEY}`, request);
+        const data = await response.json();
+
+        if (data) setFunction(data);
+        else {
+            console.log(data);
+        }
+    }
+    catch (e) {
+        console.log("Error");
+        console.log(e)
+    }
 };
 
-export function marketNews(category, minId, setFunction) {
-    const categories = ['general', 'forex', 'crypto', 'merger']
-    const finnhub = require('finnhub');
-    const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-    api_key.apiKey = process.env.FINNHUB_API_KEY;
-    const finnhubClient = new finnhub.DefaultApi()
-    finnhubClient.marketNews(categories.includes(category) ? category : 'general', minId, (error, data, response) => {
-        if (error === null) setFunction(data);
-        else console.log('error', error);
-    });
+export async function marketNews(category, minId, setFunction) {
+    const request = {
+        method: 'GET',
+        headers: {
+        },
+    };
+    try {
+        const response = await fetch(`https://finnhub.io/api/v1/news?category=${category}&token=${process.env.FINNHUB_API_KEY}`, request);
+        const data = await response.json();
+
+        if (data) setFunction(data);
+        else {
+            console.log(data);
+        }
+    }
+    catch (e) {
+        console.log("Error");
+        console.log(e)
+    }
 }
 
-export function stockProfile(symbol, setFunction) {
-    const finnhub = require('finnhub');
-    const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-    api_key.apiKey = process.env.FINNHUB_API_KEY;
-    const finnhubClient = new finnhub.DefaultApi()
-    finnhubClient.companyProfile2({ symbol }, (error, data, response) => {
-        if (error === null) setFunction(data);
-        else console.log('error', error);
-    });
+export async function stockProfile(symbol, setFunction) {
+    const request = {
+        method: 'GET',
+        headers: {
+        },
+    };
+    try {
+
+        const response = await fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${process.env.FINNHUB_API_KEY}`, request);
+        const data = await response.json();
+
+        if (data) setFunction(data);
+        else {
+            console.log(data);
+        }
+    }
+    catch (e) {
+        console.log("Error");
+        console.log(e)
+    }
 };
 
-export function stockQuote(symbol, setFunction) {
-    const finnhub = require('finnhub');
-    const api_key = finnhub.ApiClient.instance.authentications['api_key'];
-    api_key.apiKey = process.env.FINNHUB_API_KEY;
-    const finnhubClient = new finnhub.DefaultApi()
-    finnhubClient.quote(symbol, (error, data, response) => {
-        if (error === null) setFunction(data);
-        else console.log('error', error);
-    });
+export async function stockQuote(symbol, setFunction) {
+    const request = {
+        method: 'GET',
+        headers: {
+        },
+    };
+    try {
+
+        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${process.env.FINNHUB_API_KEY}`, request);
+        const data = await response.json();
+
+        if (data) setFunction(data);
+        else {
+            console.log(data);
+        }
+    }
+    catch (e) {
+        console.log("Error");
+        console.log(e)
+    }
 };
 
 

@@ -2,31 +2,33 @@ import React from 'react'
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Carousel } from 'react-bootstrap';
-import stocksImage from '../../../src/images/Stocks.jpg';
-import educationalResources from '../../../src/images/EducationalResources.jpg';
-import economicIndicators from '../../../src/images/EconomicIndicators.jpg';
-import news from '../../../src/images/News.jpg';
+import stocksImage from '../../../src/images/HomePage/Stocks.svg';
+import educationalResources from '../../../src/images/HomePage/Educational_Resources.svg';
+import economicIndicators from '../../../src/images/HomePage/Economic_Indicators.svg';
+import news from '../../../src/images/HomePage/News.svg';
 import NavbarComponent from "../Navbar/Navbar.js";
 import './Home.css';
+import { Nav, Button } from 'react-bootstrap';
 
 function Home() {
-
-        return (
-            <>
-            <NavbarComponent nav={ localStorage.getItem('userid') ? false : true } />
+    const dashboard = <Nav className="ml-auto button-link">
+        <Button variant='dark' href='/dashboard'> Dashboard </Button>
+    </Nav>
+    return (
+        <>
+            <NavbarComponent nav={localStorage.getItem('userid') ? dashboard : true} />
             <div>
                 <div className='container-fluid' >
                     <div className="row">
                         <div className="col-sm-12">
-                          <h2>   
-
-                          </h2>
                         </div>
                     </div>
                     <div className="row">
                         <div className="col-12">
-                            <Carousel className='w-50 p-3' >
-
+                            <div className='home-intro'>
+                                Welcome to Stocker, all you need for market education!
+                            </div>
+                            <Carousel className='w-75 p-3' >
                                 <Carousel.Item>
                                     <a href="/resources">
                                         <img
@@ -35,12 +37,7 @@ function Home() {
                                             alt="First slide"
                                         />
                                     </a>
-
-                                    <Carousel.Caption>
-                                        <h3>Educational Resources</h3>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
-
                                 <Carousel.Item>
                                     <a href='/stocks'>
                                         <img
@@ -49,12 +46,7 @@ function Home() {
                                             alt="Second slide"
                                         />
                                     </a>
-
-                                    <Carousel.Caption>
-                                        <h3>Stocks</h3>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
-
                                 <Carousel.Item>
                                     <a href='/news'>
                                         <img
@@ -63,34 +55,21 @@ function Home() {
                                             alt="Third slide"
                                         />
                                     </a>
-                                    <Carousel.Caption>
-                                        <h3>News</h3>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
-
                                 <Carousel.Item>
                                     <img
                                         className="d-block w-100"
                                         src={economicIndicators}
                                         alt="Fourth slide"
                                     />
-                                    <Carousel.Caption>
-                                        <h3>Economic Indicators</h3>
-                                    </Carousel.Caption>
                                 </Carousel.Item>
-
                             </Carousel>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
-
-          </>
-        );
-    }
+        </>
+    );
+}
 
 export default Home;
