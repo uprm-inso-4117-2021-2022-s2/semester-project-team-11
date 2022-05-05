@@ -11,16 +11,16 @@ import './Home.css';
 
 function Home() {
 
-        return (
-            <>
-            <NavbarComponent nav={ localStorage.getItem('userid') ? false : true } />
+    return (
+        <>
+            <NavbarComponent nav={localStorage.getItem('userid') ? false : true} />
             <div>
                 <div className='container-fluid' >
                     <div className="row">
                         <div className="col-sm-12">
-                          <h2>   
+                            <h2>
 
-                          </h2>
+                            </h2>
                         </div>
                     </div>
                     <div className="row">
@@ -84,13 +84,8 @@ function Home() {
                     </div>
                 </div>
             </div>
-
-
-
-
-
-          </>
-        );
-    }
+        </>
+    );
+}
 
 export default Home;
