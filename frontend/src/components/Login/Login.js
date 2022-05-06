@@ -31,7 +31,7 @@ export default function Login() {
                 localStorage.setItem("userid", data.userid);
                 localStorage.setItem("fname", data.firstname);
                 localStorage.setItem("lname", data.lastname);
-                history('/');
+                history('/dashboard');
             } else {
                 console.log(data);
                 localStorage.clear();
@@ -77,8 +77,8 @@ export default function Login() {
                     </InputGroup>
                 </Form.Group>
 
-                <div className='button-link'>
-                    <Button variant="dark" onClick={ userAuthentication }> Login </Button>
+                <div className='btn-container'>
+                    <Button variant='primary' onClick={ userAuthentication }> Login </Button>
                 </div>
             </Form>
         )
@@ -91,8 +91,8 @@ export default function Login() {
                 <h1>
                     Want to join Stocker? <IoRocketOutline className='toggler-icon'/>
                 </h1>
-                <div className='button-link'>
-                    <Button variant="dark" href='/register'> Register </Button>
+                <div className='btn-container'>
+                    <Button variant='tertiary' href='/register'> Register </Button>
                 </div>
 
             </div>  

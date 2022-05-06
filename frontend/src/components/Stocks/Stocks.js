@@ -1,8 +1,9 @@
 import React, { useState, useEffect} from 'react'
 import { Button, Table, Modal, Pagination } from 'react-bootstrap';
-import { Link } from 'react-router-dom'
-import { BsSearch, BsFillArrowRightCircleFill, BsPlusCircleFill } from 'react-icons/bs';
+import { useNavigate } from 'react-router-dom'
+import { BsSearch, BsFillArrowRightCircleFill, BsPlusCircleFill, BsDashCircleFill } from 'react-icons/bs';
 import { stockSearch } from '../../requests/FinnHub-Requests';
+import { fetchUserStocks } from '../../requests/Stocker-Requests.js';
 import { AiOutlineStock } from 'react-icons/ai'
 import NavbarComponent from "../Navbar/Navbar.js";
 import { hosts } from '../../config/hosts';
@@ -19,6 +20,8 @@ export default function Stocks() {
     const [userStocks, setUserStocks] = useState([])
     const [title, setTitle] = useState('')
 
+    const history = useNavigate()
+
     useEffect(() => {
         const storage = localStorage.getItem('stocksState')
         const restore = localStorage.getItem('fromDetails')
@@ -33,7 +36,9 @@ export default function Stocks() {
             setTitle('Stocks')
             stockSearch('', setStocks)
         }
-        fetchUserStocks()
+        const userid = localStorage.getItem('userid')
+        if(!userid) return ; 
+        fetchUserStocks(userid, setUserStocks)
         localStorage.removeItem('stocksState')
         localStorage.removeItem('fromDetails')
     }, [])
@@ -50,23 +55,6 @@ export default function Stocks() {
         stocks.result && setLoading(false)
     }, [stocks, currentPage])
 
-    const fetchUserStocks = async () => {
-        const userid = localStorage.getItem('userid')
-        if(!userid){ return ; }
-
-        try{
-            const response = await fetch(`${hosts['heroku']}/stocker/stock/savedStocks/${userid}`)
-            const data = await response.json()
-            const stocks = data.map(stock => stock.symbol[0])
-            setUserStocks(stocks)
-        }
-        catch(e){
-            console.log("Error");
-            localStorage.clear();
-            console.log(e)
-        }
-    }
-
     const fetchSearch = () => {
         const title = searchKeyword === '' ? 'Stocks' : `Search for '${searchKeyword}'`
         resetStocksStates()
@@ -82,7 +70,7 @@ export default function Stocks() {
         setLastPage(1)
     }
 
-    const handleStock = async (stock) => {
+    const handleAddRemove = async (stock) => {
         const userid = localStorage.getItem('userid')
         if(!userid){
             setOpenRegisterModal(true)
@@ -95,17 +83,15 @@ export default function Stocks() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ 'symbol' : stock.symbol })
+                body: JSON.stringify({ 'symbol' : `${stock.symbol}` })
             };
     
             try{
                 const response = await fetch(`${hosts['heroku']}/stocker/stock/savedStocks/${userid}`, request)
                 const data = await response.json()
-                if(data === 'STOCK WAS REMOVED SUCCESSFULLY.'){
-                    const filtered = userStocks.filter(symbol => symbol !== stock.symbol )
-                    setUserStocks(filtered)
+                if(data){
+                    fetchUserStocks(userid, setUserStocks)
                 }
-                console.log(data)
                 return ;
             }
             catch(e){
@@ -120,14 +106,14 @@ export default function Stocks() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ 'symbol' : stock.symbol })
+            body: JSON.stringify({ 'symbol' : `${stock.symbol}` })
         };
 
         try{
             const response = await fetch(`${hosts['heroku']}/stocker/stock/savedStocks/${userid}`, request)
             const data = await response.json()
-            if(data === 'STOCK WAS SAVED SUCCESSFULLY.'){
-                setUserStocks([...userStocks, stock.symbol])
+            if(data){
+                fetchUserStocks(userid, setUserStocks)
             }
             console.log(data)
         }
@@ -138,9 +124,10 @@ export default function Stocks() {
         
     }
 
-    const saveState = () => {
+    const handleDetails = (stock) => {
         const state = { stocks, currentPage, title, searchKeyword }
         localStorage.setItem('stocksState', JSON.stringify(state))
+        history(`/stocks/details/${stock.symbol}`)
     }
 
     const renderSearchBar = () => {
@@ -169,7 +156,7 @@ export default function Stocks() {
                         <tr className='header-row'>
                             <th className='table-column first-column'>Symbol</th>
                             <th className='table-column'>Name</th>
-                            <th className='table-column'>Save/Remove</th>
+                            <th className='table-column'>Add/Remove</th>
                             <th className='table-column'>Details</th>
                         </tr>
                     </thead>
@@ -180,12 +167,13 @@ export default function Stocks() {
                                     <td className='record-value first-column'>{ stock.symbol }</td>
                                     <td className='record-value'>{ stock.description }</td>
                                     <td className='record-value actions'>
-                                        <BsPlusCircleFill className={userStocks.includes(stock.symbol) ? 'remove-button' : 'add-button'} size={30} onClick={ () => handleStock(stock) }/>
+                                        {userStocks.includes(stock.symbol) ? 
+                                        <BsDashCircleFill className='remove-button' size={30} onClick={ () => handleAddRemove(stock) }/> :
+                                        <BsPlusCircleFill className='add-button' size={30} onClick={ () => handleAddRemove(stock) }/>
+                                        }
                                     </td>
                                     <td className='record-value actions'>
-                                        <Link to={`/stocks/details/${stock.symbol}`} onClick={ saveState }>
-                                            <BsFillArrowRightCircleFill className='details-button' size={30} />
-                                        </Link>
+                                        <BsFillArrowRightCircleFill className='details-button' size={30} onClick={ () => handleDetails(stock) }/>
                                     </td>
                                 </tr>
                             )
@@ -224,17 +212,20 @@ export default function Stocks() {
                     <p>In order to be able to save stocks you must be registered.</p> 
                     <p>Once registered, you will be provided with a Dashboard where all your saved stocks will be available to you.</p>
                 </Modal.Body>
-                <Modal.Footer className='button-link'>
+                <Modal.Footer className='btn-container'>
                     <Button variant='tertiary' onClick={ () => setOpenRegisterModal(false) }> Cancel </Button>
-                    <Button variant="dark" href='/register'> Join Us </Button>
+                    <Button variant='primary' onClick={() => history('/register')}> Join Us </Button>
                 </Modal.Footer>
             </Modal>
         )
-    } 
+    }
+    
+    const nav1 = {login: true, register: true}
+    const nav2 = {dashboard: true, news: true, resources: true, logout: true}
     
     return(
         <>
-            <NavbarComponent nav={ localStorage.getItem('userid') ? false : true } />
+            <NavbarComponent nav={ localStorage.getItem('userid') ? nav2 : nav1 } />
             <div className='container'>
                 { renderSearchBar() }
                 <h3 style={{paddingLeft: '15%'}}>{ title }</h3>
