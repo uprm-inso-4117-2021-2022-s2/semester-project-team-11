@@ -15,7 +15,6 @@ function Home() {
         <Button variant='dark' href='/dashboard'> Dashboard </Button>
     </Nav>
     console.log("Env variable: ", process.env.FINNHUB_API_KEY)
-    console.log("Env variable2: ", FINNHUB_API_KEY)
     return (
         <>
             <NavbarComponent nav={localStorage.getItem('userid') ? dashboard : true} />
