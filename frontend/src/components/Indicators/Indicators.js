@@ -61,6 +61,12 @@ const Indicators = () => {
     const resetIndicatorStates = () => {
         setIndicators({})
     }
+    if(loading === false){
+        indicatorRequest("TSLA", "sma", setIndicators)
+        console.log(indicators)
+        setLoading(true)
+    }
+    
     return (
         <>
         <NavbarComponent  nav={localStorage.getItem('userid') ? false : true }/>

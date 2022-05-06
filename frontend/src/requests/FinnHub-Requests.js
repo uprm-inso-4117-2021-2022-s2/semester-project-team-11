@@ -112,7 +112,6 @@ export async function indicatorRequest(symbol, indicator, setFunction) {
     const request = {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
         }
     };
     
@@ -124,8 +123,8 @@ export async function indicatorRequest(symbol, indicator, setFunction) {
 
     try {
         const to = getUNIXDate()
-        const from = to - 20*60
-        const response = await fetch(`https://finnhub.io/api/v1/indicator?symbol=${symbol}&resolution=D&from=${from}&to=${to}&indicator=${indicator}&token=${process.env.FINNHUB_API_KEY}`, request);
+        const from = to - 2592e3
+        const response = await fetch(`https://finnhub.io/api/v1/indicator?symbol=${symbol}&resolution=D&from=${from}&to=${to}&indicator=${indicator}&token=${"c9asca2ad3idfn1sie90"}`, request);
         const data = await response.json();
 
         if (data) setFunction(data);
