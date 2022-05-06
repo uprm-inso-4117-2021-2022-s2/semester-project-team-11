@@ -14,6 +14,9 @@ function Home() {
     const dashboard = <Nav className="ml-auto button-link">
         <Button variant='dark' href='/dashboard'> Dashboard </Button>
     </Nav>
+    // console.log("Env variable: ", process.env.FINNHUB_API_KEY)
+    // console.log("Env variable: ", process.env.REACT_APP_FINNHUB_API_KEY)
+    // console.log("Env variable: ", process.env.NODE_ENV)
     return (
         <>
             <NavbarComponent nav={localStorage.getItem('userid') ? dashboard : true} />

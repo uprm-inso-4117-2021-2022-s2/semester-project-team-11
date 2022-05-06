@@ -6,7 +6,7 @@ export async function stockPricesRequest(symbol, range, start, end, setFunction)
         },
     };
     try {
-        const response = await fetch(`https://finnhub.io/api/v1/stock/candle?symbol=${symbol}&resolution=${range}&from=${start}&to=${end}&token=${process.env.FINNHUB_API_KEY}`, request);
+        const response = await fetch(`https://finnhub.io/api/v1/stock/candle?symbol=${symbol}&resolution=${range}&from=${start}&to=${end}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`, request);
         const data = await response.json();
 
         if (data) setFunction(data);
@@ -28,7 +28,7 @@ export async function stockSearch(symbol, setFunction) {
         },
     };
     try {
-        const response = await fetch(`https://finnhub.io/api/v1/search?q=${symbol}&token=${process.env.FINNHUB_API_KEY}`, request);
+        const response = await fetch(`https://finnhub.io/api/v1/search?q=${symbol}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`, request);
         const data = await response.json();
 
         if (data) setFunction(data);
@@ -49,7 +49,7 @@ export async function marketNews(category, minId, setFunction) {
         },
     };
     try {
-        const response = await fetch(`https://finnhub.io/api/v1/news?category=${category}&token=${process.env.FINNHUB_API_KEY}`, request);
+        const response = await fetch(`https://finnhub.io/api/v1/news?category=${category}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`, request);
         const data = await response.json();
 
         if (data) setFunction(data);
@@ -70,8 +70,8 @@ export async function stockProfile(symbol, setFunction) {
         },
     };
     try {
-        
-        const response = await fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${process.env.FINNHUB_API_KEY}`, request);
+
+        const response = await fetch(`https://finnhub.io/api/v1/stock/profile2?symbol=${symbol}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`, request);
         const data = await response.json();
 
         if (data) setFunction(data);
@@ -93,7 +93,7 @@ export async function stockQuote(symbol, setFunction) {
     };
     try {
 
-        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${process.env.FINNHUB_API_KEY}`, request);
+        const response = await fetch(`https://finnhub.io/api/v1/quote?symbol=${symbol}&token=${process.env.REACT_APP_FINNHUB_API_KEY}`, request);
         const data = await response.json();
 
         if (data) setFunction(data);
