@@ -1,23 +1,18 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 function getLogInStatus() {
     if (localStorage.getItem("userid")) return true;
     else return false;
 }
 
-const GuardedRoute = ({ component: Component, ...rest }) => {
+const GuardedRoute = ({ component: Component }) => {
     return (
-        <Route
-            {...rest}
-            render={(props) =>
-                getLogInStatus() === true ? (
-                    <Component {...props} />
-                ) : (
-                    <Redirect to="/" />
-                )
-            }
-        />
+        getLogInStatus() === true ? (
+            <Component />
+        ) : (
+            <Navigate replace to="/" />
+        )
     );
 };
 

@@ -8,18 +8,15 @@ import economicIndicators from '../../../src/images/HomePage/Economic_Indicators
 import news from '../../../src/images/HomePage/News.svg';
 import NavbarComponent from "../Navbar/Navbar.js";
 import './Home.css';
-import { Nav, Button } from 'react-bootstrap';
 
 function Home() {
-    const dashboard = <Nav className="ml-auto button-link">
-        <Button variant='dark' href='/dashboard'> Dashboard </Button>
-    </Nav>
-    // console.log("Env variable: ", process.env.FINNHUB_API_KEY)
-    // console.log("Env variable: ", process.env.REACT_APP_FINNHUB_API_KEY)
-    // console.log("Env variable: ", process.env.NODE_ENV)
+
+    const nav1 = {login: true, register: true}
+    const nav2 = {dashboardRight: true}
+
     return (
         <>
-            <NavbarComponent nav={localStorage.getItem('userid') ? dashboard : true} />
+            <NavbarComponent nav={localStorage.getItem('userid') ? nav2 : nav1} />
             <div>
                 <div className='container-fluid' >
                     <div className="row">
