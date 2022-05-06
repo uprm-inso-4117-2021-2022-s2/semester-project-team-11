@@ -17,14 +17,13 @@ module.exports = function override(config) {
             process: 'process/browser',
             Buffer: ['buffer', 'Buffer']
         })
-    ])
-    // .concat([
-    //     new webpack.DefinePlugin({
-    //         'process.env': {
-    //             // '': JSON.stringify('production'),
-    //             NODE_ENV: JSON.stringify(process.env.NODE_ENV),
-    //             FINNHUB_API_KEY: JSON.stringify(process.env.FINNHUB_API_KEY),
-    //         }
-    //     })])
+    ]).concat([
+        new webpack.DefinePlugin({
+            'process.env': {
+                '': JSON.stringify('production'),
+                // 'NODE_ENV': JSON.stringify(process.env.NODE_ENV),
+                'FINNHUB_API_KEY': JSON.stringify(process.env.FINNHUB_API_KEY)
+            }
+        })])
     return config;
 }
