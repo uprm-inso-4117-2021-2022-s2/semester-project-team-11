@@ -52,9 +52,12 @@ export default function News() {
             < BsSearch className='search-icon' name='search' onClick={searchAction} style={{ margin: '5px' }} />
         </div>;
 
+    const nav1 = {login: true, register: true}
+    const nav2 = {dashboard: true, stocks: true, resources: true, logout: true}
+
     return (
         <>
-        <NavbarComponent nav={ localStorage.getItem('userid') ? false : true }/>
+        <NavbarComponent nav={ localStorage.getItem('userid') ? nav2 : nav1 }/>
         <div className='container news-flex-container'>
                 <div className='news-left-container'>
                     {searchBar}

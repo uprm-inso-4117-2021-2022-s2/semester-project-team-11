@@ -32,7 +32,9 @@ export default function Register() {
 
                 if (data.userid) {
                     localStorage.setItem("userid", data.userid);
-                    history('/');
+                    localStorage.setItem("fname", firstname);
+                    localStorage.setItem("lname", lastname);
+                    history('/dashboard');
                 } else {
                     console.log(data);
                     localStorage.clear();
@@ -105,8 +107,8 @@ export default function Register() {
                     <Form.Check type="checkbox" label="Check this box if you are 18 years or older." checked={legalAge} onChange={(e) => setLegalAge(e.target.checked)} />
                 </Form.Group>
 
-                <div className='button-link'>
-                    <Button variant="dark" onClick={registerUser}> Register </Button>
+                <div className='btn-container'>
+                    <Button variant='primary' onClick={registerUser}> Register </Button>
                 </div>
             </Form >)
         
@@ -119,8 +121,8 @@ export default function Register() {
                 <h1>
                     Already in Stocker? <IoTelescopeOutline className='toggler-icon'/>
                 </h1>
-                <div className='button-link'>
-                    <Button variant="dark" href='/login'> Login </Button>
+                <div className='btn-container'>
+                    <Button variant='tertiary' href='/login'> Login </Button>
                 </div>
 
             </div>  

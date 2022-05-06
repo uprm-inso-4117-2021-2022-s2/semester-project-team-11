@@ -11,9 +11,12 @@ import './Home.css';
 
 function Home() {
 
+    const nav1 = {login: true, register: true}
+    const nav2 = {dashboardRight: true}
+
     return (
         <>
-            <NavbarComponent nav={localStorage.getItem('userid') ? false : true} />
+            <NavbarComponent nav={localStorage.getItem('userid') ? nav2 : nav1} />
             <div>
                 <div className='container-fluid' >
                     <div className="row">
