@@ -4,7 +4,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Carousel } from 'react-bootstrap';
 import stocksImage from '../../../src/images/HomePage/Stocks.svg';
 import educationalResources from '../../../src/images/HomePage/Educational_Resources.svg';
-import economicIndicators from '../../../src/images/HomePage/Economic_Indicators.svg';
 import news from '../../../src/images/HomePage/News.svg';
 import NavbarComponent from "../Navbar/Navbar.js";
 import './Home.css';
@@ -55,13 +54,6 @@ function Home() {
                                             alt="Third slide"
                                         />
                                     </a>
-                                </Carousel.Item>
-                                <Carousel.Item>
-                                    <img
-                                        className="d-block w-100"
-                                        src={economicIndicators}
-                                        alt="Fourth slide"
-                                    />
                                 </Carousel.Item>
                             </Carousel>
                         </div>
