@@ -4,7 +4,6 @@ import stock_image from '../../../src/images/Resources-Stock-Image-1.jpg'
 import stock_image2 from '../../../src/images/stock_image_indicator.jpeg'
 import stock_image3 from '../../../src/images/stock_market_.jpeg'
 import fidelity_image from '../../../src/images/fidelity-logo.png'
-import ameritrade_image from '../../../src/images/ameritrade.png'
 
 
 
